@@ -13,7 +13,7 @@
 
 ### Install Deps
 >
-> npm i @mohism/cli-wrap
+> npm i @mohism/cli-wrapper
 > 
 > (wait ...)
 > 
