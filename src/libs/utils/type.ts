@@ -1,6 +1,6 @@
 export type ArgvOption = {
   desc: string;
-  default: string;
+  default: any;
 }
 
 export type Dict<T> = {
