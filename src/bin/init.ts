@@ -52,7 +52,7 @@ writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
 console.log(yellow('--- waiting ---'));
 shelljs.exec('npm i typescript @types/node -D');
 copyFileSync(
-  `${__dirname}/../../tsconfig.json`,
+  `${__dirname}/../../tpl/tsconfig.tpl`,
   `${root}/tsconfig.json`,
 );
 
