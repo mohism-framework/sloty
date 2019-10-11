@@ -1,6 +1,6 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "",
   "bin": {
     "init-wrapper": "./dist/bin/init.js"
