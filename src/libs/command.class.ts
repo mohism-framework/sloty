@@ -78,6 +78,7 @@ class Command {
    * @param {ActionBase} action
    */
   add(name: string, action: ActionBase): void {
+    action.setInstance(this);
     this.handlers.set(name, action);
   }
 
