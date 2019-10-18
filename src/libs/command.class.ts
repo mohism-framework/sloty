@@ -58,13 +58,15 @@ ${optionList.grey}
 
 
 class Command {
+  name: string;
   root: string;
   home: string | undefined;
   version: string;
   yargs: yargs.Argv;
   handlers: Map<string, ActionBase>;
 
-  constructor(option: { root: string, home: string | undefined, version: string }) {
+  constructor(option: { name: string, root: string, home: string | undefined, version: string }) {
+    this.name = name;
     this.root = option.root;
     this.home = option.home;
     this.version = option.version;
