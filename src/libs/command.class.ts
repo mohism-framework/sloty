@@ -95,6 +95,11 @@ class Command {
       this.globalHelp();
       process.exit();
     }
+
+    if (argv._[0] === 'version' || (argv._.length === 0 && (argv.v || argv.version))) {
+      console.log(this.version);
+      process.exit();
+    }
     // sub-commands
     const action: ActionBase | undefined = this.handlers.get(argv._[0]);
     if (action) {
@@ -131,6 +136,8 @@ class Command {
     console.log(outputs.join(EOL));
     process.exit(0);
   }
+
+
 }
 
 export default Command;
