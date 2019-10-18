@@ -124,7 +124,7 @@ class Command {
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);
       if (action) {
-        outputs.push(`\t${rightpad(actionName, 16)} \t ${rightpad(action.description(), 16)}`);
+        outputs.push(`\t${rightpad(actionName, 16)} \t ${action.description()}`);
       }
     });
 

@@ -1,4 +1,4 @@
-import { blue, grey } from 'colors';
+import { blue, grey, yellow, red } from 'colors';
 import rp from './rightpad';
 import dayjs from 'dayjs';
 
@@ -12,10 +12,10 @@ export default class Logger {
   }
 
   static warn(ctx: any): void {
-    console.log(`${blue(rp('[WARN]', 6))} ${grey(dayjs().format('YYYY-MM-DD HH:mm:ss'))} ${grey(stringify(ctx))}`);
+    console.log(`${yellow(rp('[WARN]', 6))} ${grey(dayjs().format('YYYY-MM-DD HH:mm:ss'))} ${grey(stringify(ctx))}`);
   }
 
   static err(ctx: any): void {
-    console.error(`${blue(rp('[ERR]', 6))} ${grey(dayjs().format('YYYY-MM-DD HH:mm:ss'))} ${grey(stringify(ctx))}`);
+    console.error(`${red(rp('[ERR]', 6))} ${grey(dayjs().format('YYYY-MM-DD HH:mm:ss'))} ${grey(stringify(ctx))}`);
   }
 }
