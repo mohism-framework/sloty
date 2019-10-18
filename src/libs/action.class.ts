@@ -3,7 +3,7 @@ import Logger from './utils/logger';
 import Command from './command.class';
 
 abstract class ActionBase {
-  private instance: Command | null = null;
+  protected instance: Command | null = null;
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
   abstract run(options: Dict<any>): Promise<any>;
