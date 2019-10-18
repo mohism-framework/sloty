@@ -32,8 +32,13 @@ copyFileSync(
   `${root}/src/bin/index.ts`,
 );
 
+const cmdName =
+  (pkg.name as string).includes('/') ?
+    pkg.name.split('/')[1]
+    : pkg.name;
+
 pkg.bin = {
-  [pkg.name]: 'dist/bin/index.js',
+  [cmdName]: 'dist/bin/index.js',
 };
 pkg.scripts = Object.assign(pkg.scripts, {
   start: `echo "run 'sudo npm link' and '${pkg.name} -h'"`,

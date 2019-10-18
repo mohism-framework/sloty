@@ -1,7 +1,7 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.1.4",
-  "description": "",
+  "version": "1.1.5",
+  "description": "按以下顺序创建你的命令行工具，",
   "bin": {
     "init-wrapper": "./dist/bin/init.js"
   },
@@ -33,5 +33,14 @@
     "dayjs": "^1.8.16",
     "shelljs": "^0.8.3",
     "yargs": "^14.2.0"
-  }
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohism-framework/cli-wrapper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mohism-framework/cli-wrapper/issues"
+  },
+  "homepage": "https://github.com/mohism-framework/cli-wrapper#readme"
 }
