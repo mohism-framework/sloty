@@ -66,7 +66,7 @@ class Command {
   handlers: Map<string, ActionBase>;
 
   constructor(option: { name: string, root: string, home: string | undefined, version: string }) {
-    this.name = name;
+    this.name = option.name;
     this.root = option.root;
     this.home = option.home;
     this.version = option.version;
@@ -132,4 +132,4 @@ class Command {
   }
 }
 
-export default Command;
+export = Command;

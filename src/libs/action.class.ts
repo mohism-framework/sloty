@@ -21,4 +21,4 @@ abstract class ActionBase {
   }
 }
 
-export default ActionBase;
+export = ActionBase;
