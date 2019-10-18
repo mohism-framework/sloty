@@ -12,7 +12,7 @@ const instance = new Command({
   name: Object.keys(pkg.bin)[0],
   root: resolve(`${__dirname}/../..`),
   home: process.env.HOME,
-  version: '1.0.0',
+  version: pkg.version,
 });
 
 // register
