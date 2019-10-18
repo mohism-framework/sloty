@@ -3,10 +3,10 @@ import Logger from './utils/logger';
 import Command from './command.class';
 
 abstract class ActionBase {
-  protected instance: Command = {} as Command;
+  instance: Command = {} as Command;
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
-  abstract run(options: Dict<any>): Promise<any>;
+  abstract run(options?: Dict<any>): Promise<any>;
   setInstance(instance: Command): void {
     this.instance = instance;
   }
@@ -21,4 +21,4 @@ abstract class ActionBase {
   }
 }
 
-export = ActionBase;
+export default ActionBase;

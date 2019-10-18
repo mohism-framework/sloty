@@ -6,6 +6,7 @@ import { red, yellow } from 'colors';
 import ActionBase from './action.class';
 import rp from './utils/rightpad';
 import { ArgvOption, Dict } from './utils/type';
+import rightpad from './utils/rightpad';
 
 type IBooleanMap = {
   [propName: string]: boolean;
@@ -123,7 +124,7 @@ class Command {
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);
       if (action) {
-        outputs.push(`\t${actionName} \t ${action.description()}`);
+        outputs.push(`\t${rightpad(actionName, 16)} \t ${rightpad(action.description(), 16)}`);
       }
     });
 
@@ -132,4 +133,4 @@ class Command {
   }
 }
 
-export = Command;
+export default Command;
