@@ -47,7 +47,7 @@ const unifiedHelp = (action: ActionBase, sub: string = '', root: string = ''): s
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
   const optionList = Object.keys(options).reduce((a, c) => `${a}${rp(`  ${c}`, 12).green} ${rp(`${options[c].desc}`, 24)}${rp(`default: ${options[c].default}`, 16).grey}${EOL}`, '');
-  const usage = `Usage: ${pkg.name} ${sub} ${optionStr}`;
+  const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr}`;
   return `${usage.green}
 
 ${description.grey}
