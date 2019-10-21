@@ -41,7 +41,7 @@ pkg.bin = {
   [cmdName]: 'dist/bin/index.js',
 };
 pkg.scripts = Object.assign(pkg.scripts, {
-  start: `echo "run 'sudo npm link' and '${pkg.name} -h'"`,
+  start: `echo "run 'sudo npm link' and '${cmdName} -h'"`,
 });
 
 if (!existsSync(`${root}/src/commands`)) {
@@ -60,8 +60,5 @@ copyFileSync(
   `${__dirname}/../../tpl/tsconfig.tpl`,
   `${root}/tsconfig.json`,
 );
-
-
-
 
 console.log(green('Done!'));
