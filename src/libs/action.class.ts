@@ -19,6 +19,10 @@ abstract class ActionBase {
   err(ctx: any): void {
     Logger.err(ctx);
   }
+  fatal(ctx: any): void {
+    Logger.err(ctx);
+    process.exit(0);
+  }
 }
 
 export default ActionBase;
