@@ -7,6 +7,7 @@ import ActionBase from './action.class';
 import rp from './utils/rightpad';
 import { ArgvOption, Dict } from './utils/type';
 import rightpad from './utils/rightpad';
+import Storage, { IStorage } from './storage.class';
 
 type IBooleanMap = {
   [propName: string]: boolean;
@@ -61,18 +62,20 @@ ${optionList.grey}
 class Command {
   name: string;
   root: string;
-  home: string | undefined;
+  home: string;
   version: string;
   yargs: yargs.Argv;
   handlers: Map<string, ActionBase>;
+  storage: IStorage;
 
-  constructor(option: { name: string, root: string, home: string | undefined, version: string }) {
+  constructor(option: { name: string, root: string, home: string, version: string }) {
     this.name = option.name;
     this.root = option.root;
-    this.home = option.home;
+    this.home = option.home || '/tmp';
     this.version = option.version;
     this.yargs = yargs.epilog('Power by LANHAO'.green).help(false);
     this.handlers = new Map();
+    this.storage = new Storage(this.home, this.name);
   }
 
   /**

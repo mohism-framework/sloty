@@ -1,6 +1,7 @@
-import { Dict, ArgvOption } from './utils/type';
-import Logger from './utils/logger';
 import Command from './command.class';
+import Logger from './utils/logger';
+import { ArgvOption, Dict } from './utils/type';
+import { IStorage } from './storage.class';
 
 abstract class ActionBase {
   instance: Command = {} as Command;
@@ -22,6 +23,9 @@ abstract class ActionBase {
   fatal(ctx: any): void {
     Logger.err(ctx);
     process.exit(0);
+  }
+  get storage(): IStorage {
+    return this.instance.storage;
   }
 }
 
