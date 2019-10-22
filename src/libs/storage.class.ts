@@ -8,9 +8,9 @@ export interface IStorage {
 export default class Storage {
   private home: string;
   private prefix: string;
-  constructor(home: string, prefix: string = '.storage') {
+  constructor(home: string, prefix: string = 'storage') {
     this.home = home;
-    this.prefix = prefix;
+    this.prefix = `.${prefix}`;
   }
 
   get(key: string): string {
