@@ -61,19 +61,21 @@ description() {
 
 ```javascript
 async run(options) {
-	// 输出INFO
-	this.info('this is INFO');
-	// 输出WARN
-	this.warn('this is WARN');
-	// 输出ERR
-	this.err('this is ERR');
+  // 输出INFO
+  this.info('this is INFO');
+  // 输出WARN
+  this.warn('this is WARN');
+  // 输出ERR
+  this.err('this is ERR');
+  // 输出错误并退出
+  this.fatal('quit');
 
-	// 输出命令行参数
-	this.info(argv);
+  // 输出命令行参数
+  this.info(argv);
 
-	// 真正的逻辑
-	const { word, c } = argv;
-	console.log(`Hello ${word[c]}`);
+  // 真正的逻辑
+  const { word, c } = argv;
+  console.log(`Hello ${word[c]}`);
 }
 ```
 
