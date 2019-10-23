@@ -32,10 +32,10 @@ options() {
 	    desc: 'words-to-say', // description
 	    default: 'world', // default value
 	  },
-		c: {
-			desc: 'color',
-			default: 'red',
-		}
+	  c: {
+		desc: 'color',
+		default: 'red',
+	  }
 	};
 }
 

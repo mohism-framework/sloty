@@ -22,16 +22,17 @@ instance.add("hello", Hello);
 ### options(): Dict<ArgvOption>
 
 ```javascript
+
 options(): Dict<ArgvOption> {
 	return {
 	  word: { // option name
 	    desc: 'words-to-say', // description
 	    default: 'world', // default value
 	  },
-		c: {
-			desc: 'color',
-			default: 'red',
-		}
+	  c: {
+		desc: 'color',
+		default: 'red',
+	  }
 	};
 }
 
