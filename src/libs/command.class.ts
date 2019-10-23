@@ -113,6 +113,9 @@ class Command {
           await action.run(unifiedArgv(argv, action.options()));
         }
       } catch (e) {
+        if (process.env.DEBUG) {
+          console.log(e);
+        }
         console.log(red(e.message));
       }
     } else {

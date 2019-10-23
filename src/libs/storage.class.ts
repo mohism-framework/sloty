@@ -7,7 +7,7 @@ export interface IStorage {
   append(key: string, value: string): void;
 }
 
-export default class Storage {
+export default class Storage implements IStorage {
   private home: string;
   private prefix: string;
   constructor(home: string, prefix: string = 'storage') {

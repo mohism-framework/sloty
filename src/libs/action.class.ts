@@ -2,6 +2,7 @@ import Command from './command.class';
 import Logger from './utils/logger';
 import { ArgvOption, Dict } from './utils/type';
 import { IStorage } from './storage.class';
+import Question, { IQuestion } from './question.class';
 
 abstract class ActionBase {
   instance: Command = {} as Command;
@@ -26,6 +27,9 @@ abstract class ActionBase {
   }
   get storage(): IStorage {
     return this.instance.storage;
+  }
+  get question(): IQuestion {
+    return Question;
   }
 }
 
