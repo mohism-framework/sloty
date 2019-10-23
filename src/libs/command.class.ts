@@ -25,7 +25,7 @@ const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>):
     options[key] = t !== undefined ? t : defaultOptions[key].default;
   });
   return options;
-}
+};
 
 const typeOption = (option: string): string | boolean | number => {
   if (['true', 'false'].includes(option)) {
@@ -35,7 +35,7 @@ const typeOption = (option: string): string | boolean | number => {
     return +option;
   }
   return option;
-}
+};
 
 /**
  * 标准化帮助信息输出
@@ -56,7 +56,7 @@ ${description.grey}
 ${'options:'.white}
 ${optionList.grey}
 `;
-}
+};
 
 
 class Command {

@@ -1,28 +1,32 @@
 ### 项目内开发
 
-在你上一节创建的`foo`命令里，参考项目下 `src/commands/hello-world.action.ts`。
+在你上一节创建的`foo`命令里，参考项目下 `./hello-world.action.js`。
 
 重点是要实现父类`ActionBase`的三个方法，下面会详细说
 
-- `options(): Dict<ArgvOption>`
-- `description(): string`
-- `run(options: Dict<any>): Promise<any>`
+- `options()`
+- `description()`
+- `run(options)`
 
-然后在 `src/bin/index.ts` 里引入并注册。
+然后在 `./index.ts` 里引入并注册。
 
 ```javascript
 // load actions
-import Hello from "../commands/hello-world.action";
+const Hello = require('./hello-world.action');
+
+/**
+ * other codes 
+ */
 
 instance.add("hello", Hello);
 ```
 
 ##### 然后我们针对 hello-world 例子的代码讲解一下
 
-### options(): Dict<ArgvOption>
+### options()
 
 ```javascript
-options(): Dict<ArgvOption> {
+options() {
 	return {
 	  word: { // option name
 	    desc: 'words-to-say', // description
@@ -42,10 +46,10 @@ options(): Dict<ArgvOption> {
     1. 定义了这个命令的两个参数选项 `--word` `-c`
     2. 分别为两个选项设置描述信息和默认值
 
-### description(): string
+### description()
 
 ```javascript
-description(): string {
+description() {
   return `${'helping a hello'}`;
 }
 ```
@@ -53,10 +57,10 @@ description(): string {
 这里主要是返回一个字符串作为命令的介绍，
 会在全局 help 信息以及 子命令 help 信息里显示。
 
-### run(options: Dict<any>): Promise<any>
+### async run(options)
 
 ```javascript
-async run(options: Dict<any>): Promise<any> {
+async run(options) {
 	// 输出INFO
 	this.info('this is INFO');
 	// 输出WARN
@@ -75,16 +79,16 @@ async run(options: Dict<any>): Promise<any> {
 
 这里主要是演示了一些内置方法和实现了打印 `hello-{world}` 的逻辑。
 
-### 然后我们看看效果 (前提要执行 `npx tsc`)
+### 然后我们看看效果 
 
 > foo -h
 
-![](./assets/1.png)
+![](../../assets/1.png)
 
 > foo hello -h
 
-![](./assets/2.png)
+![](../../assets/2.png)
 
 > foo hello --word mohism -c red
 
-![](./assets/3.png)
+![](../../assets/3.png)

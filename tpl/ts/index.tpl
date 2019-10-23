@@ -9,7 +9,7 @@ const pkg = require('../../package.json');
 
 // init
 const instance = new Command({
-  name: Object.keys(pkg.bin)[0],
+  name: Object.keys(pkg.bin || {})[0],
   root: resolve(`${__dirname}/../..`),
   home: process.env.HOME || '/tmp',
   version: pkg.version,
