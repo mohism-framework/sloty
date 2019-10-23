@@ -1,6 +1,6 @@
 ### 项目内开发
 
-直接参考项目下 `src/commands/hello-world.action.ts`。
+在你上一节创建的`foo`命令里，参考项目下 `src/commands/hello-world.action.ts`。
 
 重点是要实现父类`ActionBase`的三个方法，下面会详细说
 

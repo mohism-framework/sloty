@@ -1,3 +1,8 @@
+### Mohism cli-wrapper  
+
+更简单的开发你的命令行工具，
+
+然后以插件的方式共享给你的朋友。
 
 ## Getting Start
 

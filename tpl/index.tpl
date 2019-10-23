@@ -11,7 +11,7 @@ const pkg = require('../../package.json');
 const instance = new Command({
   name: Object.keys(pkg.bin)[0],
   root: resolve(`${__dirname}/../..`),
-  home: process.env.HOME,
+  home: process.env.HOME || '/tmp',
   version: pkg.version,
 });
 

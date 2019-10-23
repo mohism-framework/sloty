@@ -1,8 +1,10 @@
-import { readFileSync, writeFileSync, appendFileSync } from 'fs';
+import { readFileSync, writeFileSync, appendFileSync, existsSync, mkdirSync } from 'fs';
+import { EOL } from 'os';
 
 export interface IStorage {
   get(key: string): string;
-  set(key: string, value: string, append?: boolean): void;
+  save(key: string, value: string): void;
+  append(key: string, value: string): void;
 }
 
 export default class Storage {
@@ -11,18 +13,29 @@ export default class Storage {
   constructor(home: string, prefix: string = 'storage') {
     this.home = home;
     this.prefix = `.${prefix}`;
+    if (!existsSync(`${this.home}/${this.prefix}`)) {
+      mkdirSync(`${this.home}/${this.prefix}`);
+    }
   }
 
   get(key: string): string {
     return readFileSync(`${this.home}/${this.prefix}/${key}`).toString('utf-8');
   }
 
-  set(key: string, value: string, append?: boolean): void {
+  private set(key: string, value: string, append?: boolean): void {
     const file = `${this.home}/${this.prefix}/${key}`;
-    if (append) {
-      appendFileSync(file, value);
+    if (append && existsSync(file)) {
+      appendFileSync(file, `${value}${EOL}`);
     } else {
       writeFileSync(file, value);
     }
+  }
+
+  save(key: string, value: string): void {
+    this.set(key, value, false);
+  }
+
+  append(key: string, value: string): void {
+    this.set(key, value, true);
   }
 }
