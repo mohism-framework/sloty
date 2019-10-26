@@ -4,7 +4,14 @@ import { ArgvOption, Dict } from './utils/type';
 import { IStorage } from './storage.class';
 import Question, { IQuestion } from './question.class';
 
-abstract class ActionBase {
+export interface IAction {
+  options(): Dict<ArgvOption>;
+  description(): string;
+  run(options?: Dict<any>): Promise<any>;
+  setInstance(instance: Command): void;
+}
+
+abstract class ActionBase implements IAction {
   instance: Command = {} as Command;
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
@@ -23,6 +30,10 @@ abstract class ActionBase {
   }
   fatal(ctx: any): void {
     Logger.err(ctx);
+    process.exit(0);
+  }
+  done(ctx: any): void {
+    Logger.info(ctx);
     process.exit(0);
   }
   get storage(): IStorage {

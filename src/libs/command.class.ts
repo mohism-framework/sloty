@@ -2,7 +2,7 @@ import { grey, red, yellow } from 'colors';
 import { EOL } from 'os';
 import yargs = require('yargs');
 
-import ActionBase from './action.class';
+import { IAction } from './action.class';
 import Storage, { IStorage } from './storage.class';
 import rightpad from './utils/rightpad';
 import { ArgvOption, Dict } from './utils/type';
@@ -14,7 +14,7 @@ type IBooleanMap = {
 /**
  * 标准化命令行参数
  * @param {Object} argv yargs参数实例
- * @param {Object} defaultOptions ActionBase.options()
+ * @param {Object} defaultOptions IAction.options()
  */
 const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>): Dict<any> => {
   const options: Dict<any> = {};
@@ -62,11 +62,11 @@ const prettyDesc = (desc: string, color: Function, prefix: number, line: number 
 
 /**
  * 标准化帮助信息输出
- * @param {Object} action ActionBase instance
+ * @param {IAction} action IAction
  * @param {string} sub sub command
  * @param {string} root cli-root
  */
-const unifiedHelp = (action: ActionBase, sub: string = '', root: string = ''): string => {
+const unifiedHelp = (action: IAction, sub: string = '', root: string = ''): string => {
   const pkg = require(`${root}/package.json`);
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
@@ -89,7 +89,7 @@ class Command {
   home: string;
   version: string;
   yargs: yargs.Argv;
-  handlers: Map<string, ActionBase>;
+  handlers: Map<string, IAction>;
   storage: IStorage;
 
   constructor(option: { name: string, root: string, home: string, version: string }) {
@@ -105,9 +105,9 @@ class Command {
   /**
    * 注册命令
    * @param {string} name 命令名字
-   * @param {ActionBase} action
+   * @param {IAction} action
    */
-  add(name: string, action: ActionBase): void {
+  add(name: string, action: IAction): void {
     action.setInstance(this);
     this.handlers.set(name, action);
   }
@@ -128,7 +128,7 @@ class Command {
       process.exit();
     }
     // sub-commands
-    const action: ActionBase | undefined = this.handlers.get(argv._[0]);
+    const action: IAction | undefined = this.handlers.get(argv._[0]);
     if (action) {
       try {
         if (argv._[1] === 'help' || argv.h || argv.help) {
