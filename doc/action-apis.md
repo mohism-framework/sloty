@@ -1,6 +1,6 @@
 ### ActionBase API
 
-#### *abstract* options(): Dict\<ArgvOption>
+#### ✏️ *abstract* options(): Dict\<ArgvOption>
 
 开发者需要编写 `options()` 的实现。要求返回一个 `Dict<ArgvOption>`来描述命令行参数。
 
@@ -15,7 +15,7 @@
 		};
 	} 
 
-#### *abstract* description(): string
+#### ✏️ *abstract* description(): string
 
 开发者需要编写 `description()`的实现。 要求返回一个字符串，用于`-h`帮助信息。
 
@@ -24,7 +24,7 @@
 	description(): string {
 		return '这个命令随机消灭半个灭霸';
 	}
-#### *abstract* run(options?: Dict\<any>): Promise<any>
+#### ✏️ *abstract* run(options?: Dict\<any>): Promise<any>
 
 开发者需要编写 `async run(options?: Dict<any>)`的实现。
 
@@ -39,28 +39,28 @@
 		await killThanos(1/2);  // 杀死半个灭霸
 		this.done('kill 1/2 Thanos');
 	}
-#### info(ctx: any): void
+#### 🎁 info(ctx: any): void
 
 内置方法：打印 **info** 级别信息。
 
 例子：
 
 	this.info('this is info');	
-#### warn(ctx: any): void
+#### 🎁 warn(ctx: any): void
 
 内置方法：打印 **warning** 级别信息。
 
 例子：
 
 	this.warn('this is warning');	
-#### err(ctx: any): void
+#### 🎁 err(ctx: any): void
 
 内置方法：打印 **error** 级别信息。
 
 例子：
 
 	this.err('this is error');	
-#### fatal(ctx: any): void
+#### 🎁 fatal(ctx: any): void
 
 内置方法：打印 **error** 级别信息, 然后退出程序。
 
@@ -68,7 +68,7 @@
 
 	this.fatal('发生重大事故，停止运行');	
 	
-#### done(ctx: any): void
+#### 🎁 done(ctx: any): void
 
 内置方法：打印 **info** 级别信息, 然后退出程序。
 
@@ -77,7 +77,7 @@
 	this.done('没有事故，就是想退出');	
 
 	
-#### storage
+#### 🎁 storage
 内置`getter` ， 得到一个`storage`实例，用于存储文件。
 
 文件存储位置: `${HOME}/.${COMMAND_NAME}`, 如： `/Users/Jane/.mohism`
@@ -93,7 +93,7 @@
 	const latestErr = this.storage.get('latest_error');
 
  
-#### question
+#### 🎁 question
 内置`getter` ， 得到一个`question`实例，用于命令行交互操作。
 
 例子: 
