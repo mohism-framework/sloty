@@ -1,13 +1,11 @@
+import { grey, red, yellow } from 'colors';
 import { EOL } from 'os';
 import yargs = require('yargs');
 
-import { red, yellow } from 'colors';
-
 import ActionBase from './action.class';
-import rp from './utils/rightpad';
-import { ArgvOption, Dict } from './utils/type';
-import rightpad from './utils/rightpad';
 import Storage, { IStorage } from './storage.class';
+import rightpad from './utils/rightpad';
+import { ArgvOption, Dict } from './utils/type';
 
 type IBooleanMap = {
   [propName: string]: boolean;
@@ -36,17 +34,30 @@ const typeOption = (option: string): string | boolean | number => {
   }
   return option;
 };
-
 /**
  * 让desc更好看
- * @param desc 
+ * @param desc desc文本
+ * @param color 颜色
+ * @param prefix 换行后前面的缩进
  */
-const prettyDesc = (desc: string): string => {
+const prettyDesc = (desc: string, color: Function, prefix: number, line: number = 32): string => {
   const outputs: Array<string> = [];
-  (desc.match(/.{1,24}/g) as Array<string>).forEach(piece => {
-    outputs.push(rp(piece.grey, 36));
-  });
-  return outputs.join(`${EOL}${rp('', 34)}`);
+  const bits: Array<string> = Array.from(desc);
+  let piece: string = '';
+  while (bits.length > 0) {
+    piece += bits[0];
+    if (piece.length > line && ([' ', ',', '，', '.', '。', ')'].includes(bits[0]) || piece.endsWith('39m'))) {
+      outputs.push(rightpad(color(piece), piece.length > line ? piece.length + 12 : line + 12));
+      piece = '';
+    }
+    bits.shift();
+  }
+  if (piece.length < 6) {
+    outputs[outputs.length - 1] += color(piece);
+  } else {
+    outputs.push(rightpad(color(piece), line + 12));
+  }
+  return outputs.join(`${EOL}${rightpad('', prefix)}`);
 };
 
 /**
@@ -59,7 +70,7 @@ const unifiedHelp = (action: ActionBase, sub: string = '', root: string = ''): s
   const pkg = require(`${root}/package.json`);
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
-  const optionList = Object.keys(options).reduce((a, c) => `${a}${rp(`  ${c}`, 10).green}${rp(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc)}${EOL}`, '');
+  const optionList = Object.keys(options).reduce((a, c) => `${a}${rightpad(`  ${c}`, 10).green}${rightpad(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc, grey, 34)}${EOL}`, '');
   const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr}`;
   return `${usage.green}
 
@@ -148,7 +159,7 @@ class Command {
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);
       if (action) {
-        outputs.push(`\t${rightpad(actionName, 16)} \t ${action.description()}`);
+        outputs.push(`${rightpad('', 6)}${rightpad(actionName, 16)}${prettyDesc(action.description(), grey, 22)}`);
       }
     });
 
