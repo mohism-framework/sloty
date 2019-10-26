@@ -13,7 +13,7 @@ class Question implements IQuestion {
       {
         type: 'list',
         name: 'sl',
-        choices,
+        choices: choices.map((v, i) => { return { name: v, value: i }; }),
         message: prompt,
         default: defaultValue,
       }
