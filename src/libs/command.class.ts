@@ -38,6 +38,18 @@ const typeOption = (option: string): string | boolean | number => {
 };
 
 /**
+ * 让desc更好看
+ * @param desc 
+ */
+const prettyDesc = (desc: string): string => {
+  const outputs: Array<string> = [];
+  (desc.match(/.{1,24}/g) as Array<string>).forEach(piece => {
+    outputs.push(rp(piece.grey, 36));
+  });
+  return outputs.join(`${EOL}${rp('', 34)}`);
+};
+
+/**
  * 标准化帮助信息输出
  * @param {Object} action ActionBase instance
  * @param {string} sub sub command
@@ -47,7 +59,7 @@ const unifiedHelp = (action: ActionBase, sub: string = '', root: string = ''): s
   const pkg = require(`${root}/package.json`);
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
-  const optionList = Object.keys(options).reduce((a, c) => `${a}${rp(`  ${c}`, 12).green} ${rp(`${options[c].desc}`, 24)}${rp(`default: ${options[c].default}`, 16).grey}${EOL}`, '');
+  const optionList = Object.keys(options).reduce((a, c) => `${a}${rp(`  ${c}`, 10).green}${rp(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc)}${EOL}`, '');
   const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr}`;
   return `${usage.green}
 
@@ -57,6 +69,7 @@ ${'options:'.white}
 ${optionList.grey}
 `;
 };
+
 
 
 class Command {
