@@ -1,6 +1,6 @@
 ### ActionBase API
 
-#### *abstract* options(): Dict<ArgvOption>
+#### *abstract* options(): Dict\<ArgvOption>
 
 开发者需要编写 `options()` 的实现。要求返回一个 `Dict<ArgvOption>`来描述命令行参数。
 
@@ -24,7 +24,7 @@
 	description(): string {
 		return '这个命令随机消灭半个灭霸';
 	}
-#### *abstract* run(options?: Dict<any>): Promise<any>
+#### *abstract* run(options?: Dict\<any>): Promise<any>
 
 开发者需要编写 `async run(options?: Dict<any>)`的实现。
 
