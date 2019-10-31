@@ -88,7 +88,6 @@ pkg.scripts = Object.assign(pkg.scripts, {
     writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
   }
 })().then(() => {
-
   console.log(green('Done!'));
   process.exit();
 }).catch(e => {

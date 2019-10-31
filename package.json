@@ -1,9 +1,10 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.2.17",
+  "version": "1.2.18",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
-    "init-wrapper": "./dist/bin/init.js"
+    "init-wrapper": "./dist/bin/init.js",
+    "gen-cmd": "./dist/bin/gen.js"
   },
   "scripts": {
     "build": "npx eslint src/**/*.ts --fix && npx tsc",
@@ -19,6 +20,7 @@
   "author": "lanhao",
   "license": "ISC",
   "devDependencies": {
+    "@types/inquirer": "^6.5.0",
     "@types/node": "^12.7.12",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
