@@ -13,7 +13,7 @@ const EXTS: Array<string> = [
   const name: string = await Question.input('input name:', 'foo');
   const ext: number = await Question.select('use Javascript or Typescript:', EXTS);
   
-  const content = readFileSync(resolve(`${__dirname}/../../gen_tpl/action.ts.tpl`)).toString();
+  const content = readFileSync(resolve(`${__dirname}/../../gen_tpl/action.${EXTS[ext]}.tpl`)).toString();
   let outDir = './';
   if (existsSync('./src')) {
     outDir = './src';
