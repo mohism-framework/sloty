@@ -1,15 +1,15 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.2.20",
+  "version": "1.2.22",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
-    "cli-wrapper": "index.js"
+    "init-wrapper": "./dist/bin/init.js",
+    "gen-cmd": "./dist/bin/gen.js"
   },
   "scripts": {
-    "postinstall": "./dist/bin/init.js",
     "build": "npx eslint src/**/*.ts --fix && npx tsc",
     "lint": "npx eslint src/**/*.ts --fix",
-    "start": "echo \"run 'sudo npm link' and 'cli-wrapper -h'\"",
+    "start": "npx ts-node ./src/bin/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -47,6 +47,5 @@
   "bugs": {
     "url": "https://github.com/mohism-framework/cli-wrapper/issues"
   },
-  "homepage": "https://github.com/mohism-framework/cli-wrapper#readme",
-  "mohismInit": true
+  "homepage": "https://github.com/mohism-framework/cli-wrapper#readme"
 }
