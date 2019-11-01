@@ -12,6 +12,10 @@ const root: string = process.cwd();
 
 console.log(`Project Root: ${yellow(root)}`);
 
+if (!existsSync(`${root}/package.json`)) {
+  shelljs.exec('npm init --yes');
+}
+
 const pkg = require(`${root}/package.json`);
 const INDENT: number = 2;
 
