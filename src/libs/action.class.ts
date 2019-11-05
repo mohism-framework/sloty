@@ -1,6 +1,6 @@
 import Command from './command.class';
-import Logger from './utils/logger';
-import { ArgvOption, Dict } from './utils/type';
+import { Logger, Dict } from '@mohism/utils';
+import { ArgvOption } from './utils/type';
 import { IStorage } from './storage.class';
 import Question, { IQuestion } from './question.class';
 

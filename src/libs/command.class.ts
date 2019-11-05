@@ -4,8 +4,9 @@ import yargs = require('yargs');
 
 import { IAction } from './action.class';
 import Storage, { IStorage } from './storage.class';
-import rightpad from './utils/rightpad';
-import { ArgvOption, Dict } from './utils/type';
+
+import { ArgvOption } from './utils/type';
+import { Dict, rightpad } from '@mohism/utils';
 
 type IBooleanMap = {
   [propName: string]: boolean;

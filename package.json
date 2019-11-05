@@ -1,6 +1,6 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.2.22",
+  "version": "1.2.23",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
     "init-wrapper": "./dist/bin/init.js",
@@ -10,7 +10,8 @@
     "build": "npx eslint src/**/*.ts --fix && npx tsc",
     "lint": "npx eslint src/**/*.ts --fix",
     "start": "npx ts-node ./src/bin/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha --require ts-node/register **/*.spec.ts",
+    "cover": "npx nyc mocha --require ts-node/register **/*.spec.ts"
   },
   "keywords": [
     "mohism",
@@ -24,12 +25,17 @@
     "@types/node": "^12.7.12",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
+    "chai": "^4.2.0",
     "dts-gen": "^0.5.8",
     "eslint": "^6.5.1",
+    "mocha": "^6.2.2",
+    "nodemon": "^1.19.4",
+    "nyc": "^14.1.1",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
   "dependencies": {
+    "@mohism/utils": "^1.0.1",
     "@types/colors": "^1.2.1",
     "@types/shelljs": "^0.8.5",
     "@types/yargs": "^13.0.3",
