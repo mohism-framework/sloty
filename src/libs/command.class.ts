@@ -85,9 +85,13 @@ ${optionList.grey}
 
 
 class Command {
+  // 命令名
   name: string;
+  // 命令根目录，方便访问命令提供的资源
   root: string;
+  // 运行系统的home目录，可以读写用户的数据
   home: string;
+  // 命令版本
   version: string;
   yargs: yargs.Argv;
   handlers: Map<string, IAction>;
@@ -118,6 +122,10 @@ class Command {
    */
   async run(): Promise<any> {
     const { argv } = this.yargs;
+    if (argv._[0] === 'compreply') {
+      console.log(Array.from(this.handlers.keys()).join(' '));
+      process.exit();
+    }
     // global help
     if (argv._[0] === 'help' || (argv._.length === 0 && (argv.h || argv.help))) {
       this.globalHelp();

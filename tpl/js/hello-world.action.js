@@ -1,4 +1,3 @@
-require('colors');
 const ActionBase = require('@mohism/cli-wrapper/dist/libs/action.class').default;
 
 class HelloAction extends ActionBase {

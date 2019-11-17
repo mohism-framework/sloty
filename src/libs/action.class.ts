@@ -1,8 +1,10 @@
+import { Dict, Logger } from '@mohism/utils';
+import shelljs, { ExecOptions, ExecOutputReturnValue } from 'shelljs';
+
 import Command from './command.class';
-import { Logger, Dict } from '@mohism/utils';
-import { ArgvOption } from './utils/type';
-import { IStorage } from './storage.class';
 import Question, { IQuestion } from './question.class';
+import { IStorage } from './storage.class';
+import { ArgvOption, ExitCode } from './utils/type';
 
 export interface IAction {
   options(): Dict<ArgvOption>;
@@ -41,6 +43,9 @@ abstract class ActionBase implements IAction {
   }
   get question(): IQuestion {
     return Question;
+  }
+  exec(cmd: string, options: ExecOptions): ExitCode {
+    return (shelljs.exec(cmd, options) as ExecOutputReturnValue).code;
   }
 }
 

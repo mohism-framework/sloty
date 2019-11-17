@@ -1,6 +1,6 @@
-require('colors');
 import ActionBase from '@mohism/cli-wrapper/dist/libs/action.class';
-import { Dict, ArgvOption } from '@mohism/cli-wrapper/dist/libs/utils/type';
+import { ArgvOption } from '@mohism/cli-wrapper/dist/libs/utils/type';
+import { Dict } from '@mohism/utils';
 
 class HelloAction extends ActionBase {
   options(): Dict<ArgvOption> {

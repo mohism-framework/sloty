@@ -29,6 +29,7 @@ const cmdName =
     : pkg.name;
 
 pkg.scripts = Object.assign(pkg.scripts, {
+  postinstall: './node_modules/.bin/cli-complete',
   start: `echo "run 'sudo npm link' and '${cmdName} -h'"`,
 });
 
@@ -72,6 +73,7 @@ pkg.scripts = Object.assign(pkg.scripts, {
       `${root}/tsconfig.json`,
     );
     pkg.mohismInit = true;
+    pkg.mohismCmd = cmdName;
     writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
     console.log(yellow('--- waiting ---'));
     shelljs.exec('npm i typescript @types/node ts-node -D');
@@ -89,6 +91,7 @@ pkg.scripts = Object.assign(pkg.scripts, {
       [cmdName]: 'index.js',
     };
     pkg.mohismInit = true;
+    pkg.mohismCmd = cmdName;
     writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
   }
 })().then(() => {

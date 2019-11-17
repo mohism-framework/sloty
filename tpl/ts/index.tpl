@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-require('colors');
 
 import { resolve } from 'path';
 import Command from '@mohism/cli-wrapper/dist/libs/command.class';
