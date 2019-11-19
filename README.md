@@ -48,6 +48,12 @@
 > 
 > foo hello -h
 
+### completion
+
+> foo --complete
+>
+> 按照提示信息操作 👀
+
 
 然后再阅读 
 
