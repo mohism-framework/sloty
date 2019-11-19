@@ -29,7 +29,8 @@ const cmdName =
     : pkg.name;
 
 pkg.scripts = Object.assign(pkg.scripts, {
-  postinstall: './node_modules/.bin/cli-complete',
+  postinstall: `echo "\n" && Run "${cmdName} --complete" enable completion.  && echo "\n"`,
+  postbuild: `${cmdName} --complete`,
   start: `echo "run 'sudo npm link' and '${cmdName} -h'"`,
 });
 

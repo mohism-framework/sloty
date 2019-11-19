@@ -1,4 +1,4 @@
-import { grey, red, yellow } from 'colors';
+import { grey, red, yellow, blue, green } from 'colors';
 import { EOL } from 'os';
 import yargs = require('yargs');
 
@@ -7,6 +7,8 @@ import Storage, { IStorage } from './storage.class';
 
 import { ArgvOption } from './utils/type';
 import { Dict, rightpad } from '@mohism/utils';
+import { resolve, join } from 'path';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
 type IBooleanMap = {
   [propName: string]: boolean;
@@ -82,6 +84,36 @@ ${optionList.grey}
 `;
 };
 
+const compreply = (cmd: string, list: Array<string>) => {
+  const tpl: string = ((cmdName: string): string => {
+    return `#/usr/bin/env bash
+  _${cmdName}_completions()
+  {
+    COMPREPLY=($(compgen -W "${list.join(' ')}" "\${COMP_WORDS[1]}"))
+  }
+  
+  complete -F _${cmdName}_completions ${cmdName}
+  `;
+  })(cmd);
+  const writableRoot: string = resolve(`${process.env.HOME}/.${cmd}`);
+  if (!existsSync(writableRoot)) {
+    mkdirSync(writableRoot);
+  }
+  writeFileSync(`${writableRoot}/${cmd}_complete.sh`, tpl);
+  console.log(`Generated: ${`${writableRoot}/${cmd}_complete.sh`.green}`);
+  const rcFile: string = ((): string => {
+    const split: Array<string> = (process.env.SHELL as string).split('/');
+    let rc: string = join(process.env.HOME as string, `.${split[split.length - 1]}rc`);
+    if (!existsSync(rc)) {
+      rc = join(process.env.HOME as string, '.bash_profile');
+    }
+    return rc;
+  })();
+  console.log(`\nRun ${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}`);
+  console.log(`Or Append "${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}"`);
+  console.log(`into end of ${blue(rcFile)}`);
+  console.log(`to enable ${green('completion')}. 命令补全啊死鬼！\n`);
+};
 
 
 class Command {
@@ -122,8 +154,8 @@ class Command {
    */
   async run(): Promise<any> {
     const { argv } = this.yargs;
-    if (argv._[0] === 'compreply') {
-      console.log(Array.from(this.handlers.keys()).join(' '));
+    if (argv.complete) {
+      compreply(this.yargs.argv.$0, Array.from(this.handlers.keys()));
       process.exit();
     }
     // global help
