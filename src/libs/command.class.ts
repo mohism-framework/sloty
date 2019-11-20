@@ -10,6 +10,7 @@ import { Dict, rightpad } from '@mohism/utils';
 import { resolve, join } from 'path';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
 
+
 type IBooleanMap = {
   [propName: string]: boolean;
 }
@@ -84,12 +85,35 @@ ${optionList.grey}
 `;
 };
 
-const compreply = (cmd: string, list: Array<string>) => {
+const compreply = (cmd: string, handlers: Map<string, IAction>) => {
+  const list = Array.from(handlers.keys());
+  const subTpl = ((handlers: Map<string, IAction>): string => {
+    const arr: Array<string> = [];
+    Array.from(handlers.keys()).forEach((key: string) => {
+      const handler: IAction = handlers.get(key) as IAction;
+      const options: Array<string> = [];
+      Object.keys(handler.options()).forEach((optionKey: string) => {
+        if (optionKey.length > 1) {
+          options.push(`--${optionKey}`);
+        } else {
+          options.push(`-${optionKey}`);
+        }
+      });
+      if (options.length) {
+        arr.push(`elif [[ "\${COMP_WORDS[1]}" == "${key}" ]];then
+      COMPREPLY=($(compgen -W "${options.join(' ')}" "\${COMP_WORDS[\${COMP_CWORD}]}"))`);
+      }
+    });
+    return arr.join(`${EOL}\t\t`);
+  })(handlers);
   const tpl: string = ((cmdName: string): string => {
     return `#/usr/bin/env bash
   _${cmdName}_completions()
   {
-    COMPREPLY=($(compgen -W "${list.join(' ')}" "\${COMP_WORDS[1]}"))
+    if [[ "\${COMP_CWORD}" == "1" ]];then
+      COMPREPLY=($(compgen -W "${list.join(' ')}" "\${COMP_WORDS[1]}"))
+    ${subTpl}
+    fi
   }
   
   complete -F _${cmdName}_completions ${cmdName}
@@ -155,7 +179,7 @@ class Command {
   async run(): Promise<any> {
     const { argv } = this.yargs;
     if (argv.complete) {
-      compreply(this.yargs.argv.$0, Array.from(this.handlers.keys()));
+      compreply(this.yargs.argv.$0, this.handlers);
       process.exit();
     }
     // global help

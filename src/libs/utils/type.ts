@@ -1,6 +1,6 @@
 export type ArgvOption = {
   desc: string;
-  default: any;
+  default?: any;
 };
 
 export type ExitCode = number;
