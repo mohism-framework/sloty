@@ -4,3 +4,7 @@ export type ArgvOption = {
 };
 
 export type ExitCode = number;
+
+export type IBooleanMap = {
+  [propName: string]: boolean;
+};
