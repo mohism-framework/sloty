@@ -1,6 +1,6 @@
 {
   "name": "@mohism/cli-wrapper",
-  "version": "1.3.18",
+  "version": "1.3.22",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
     "init-wrapper": "./dist/bin/init.js",

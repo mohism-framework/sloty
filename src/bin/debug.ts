@@ -1,8 +1,8 @@
 #!/usr/bin/env node
+import { spawnSync } from 'child_process';
 import { red, yellow } from 'colors';
 import { existsSync } from 'fs';
 import { resolve } from 'path';
-import { exec } from 'shelljs';
 import yargs = require('yargs');
 
 (async () => {
@@ -21,29 +21,37 @@ import yargs = require('yargs');
   }
 
   const mode = file.endsWith('ts') ? 'ts' : 'js';
-  
+
   if (mode === 'ts') {
     // ts mode
     const script = `
+    import { IAction } from '@mohism/cli-wrapper/dist/libs/action.class';
     import { unifiedArgv } from '@mohism/cli-wrapper/dist/libs/utils/func';
     import Debug from '${file.replace('.ts', '')}';
-    const argv:any = ${JSON.stringify(argv).replace(/"/g,'\'')};
-    Debug.run(unifiedArgv(argv, Debug.options()));
+    const argv:any = ${JSON.stringify(argv).replace(/"/g, '\'')};
+    (Debug as IAction).run(unifiedArgv(argv, Debug.options()));
     `;
-    exec(`npx ts-node -e "${script}"`, {
-      silent: false,
+    spawnSync('npx', [
+      'ts-node',
+      '-e',
+      script,
+    ], {
+      stdio: 'inherit',
     });
   } else {
     // js mode
     const script = `
-    const argv = ${JSON.stringify(argv).replace(/"/g,'\'')};
+    const argv = ${JSON.stringify(argv).replace(/"/g, '\'')};
     const { unifiedArgv } = require('@mohism/cli-wrapper/dist/libs/utils/func');
     const Debug = require('${file}');
     Debug.run(unifiedArgv(argv, Debug.options()));
     `;
-    
-    exec(`node -e "${script}"`, {
-      silent: false,
+
+    spawnSync('node', [
+      '-e',
+      script,
+    ], {
+      stdio: 'inherit',
     });
   }
 
