@@ -6,6 +6,8 @@ import Question, { IQuestion } from './question.class';
 import { IStorage } from './storage.class';
 import { ArgvOption } from './utils/type';
 
+const logger = Logger();
+
 export interface IAction {
   options(): Dict<ArgvOption>;
   description(): string;
@@ -22,20 +24,20 @@ abstract class ActionBase implements IAction {
     this.instance = instance;
   }
   info(ctx: any): void {
-    Logger.info(ctx);
+    logger.info(ctx);
   }
   warn(ctx: any): void {
-    Logger.warn(ctx);
+    logger.warn(ctx);
   }
   err(ctx: any): void {
-    Logger.err(ctx);
+    logger.err(ctx);
   }
   fatal(ctx: any): void {
-    Logger.err(ctx);
+    logger.err(ctx);
     process.exit(0);
   }
   done(ctx: any): void {
-    Logger.info(ctx);
+    logger.info(ctx);
     process.exit(0);
   }
   get storage(): IStorage {

@@ -66,20 +66,20 @@
 
 ![](../assets/9.png)
 
-### 0x11 正文开始：现在你可以使用一下 `@mohism/cli-wrapper`
+### 0x11 正文开始：现在你可以使用一下 `@mohism/sloty`
 
-如果你现在就去浏览 [cli-wrapper文档](https://github.com/mohism-framework/cli-wrapper) ， 并顺利开发出一个命令行工具，那这将是一个很好的开始。
+如果你现在就去浏览 [sloty文档](https://github.com/mohism-framework/sloty) ， 并顺利开发出一个命令行工具，那这将是一个很好的开始。
 
-因为对于 `cli-wrapper` 的定义：
+因为对于 `sloty` 的定义：
 
 - 首先它是一个脚手架，快速生成一个基础功能完善的项目，然后只写一点点你的创意
 
-	`cli-wrapper`默默地为开发者提供了一系列我们过去开发命令行中被认为是**good part**的部分。开发者无需去~~学习怎样引导命令~~、~~怎样使用鲜明的输出信息~~、~~怎样存储本地文件~~、~~怎样去接收交互参数~~。
+	`sloty`默默地为开发者提供了一系列我们过去开发命令行中被认为是**good part**的部分。开发者无需去~~学习怎样引导命令~~、~~怎样使用鲜明的输出信息~~、~~怎样存储本地文件~~、~~怎样去接收交互参数~~。
 	
 	你需要的仅仅是，弄清楚你要做的功能，然后写下为数不多的代码
 	
 
-- 其次，`cli-wrapper`开发的命令，都可以发布为插件
+- 其次，`sloty`开发的命令，都可以发布为插件
 
 	这是一个令人兴奋的设计，我们之前的工具里有一些功能，是应该被共享到其他更多的工具里的，
 	比如 `升级本程序`、`问题反馈`。（截止到目前，你已经可以在npm上看到 [升级本程序](https://www.npmjs.com/package/@mohism/self-upgrade) ）
@@ -93,12 +93,12 @@
 
 #### 0x0д(overflow) 最后的最后
 
-上面只是介绍了 `cli-wrapper` 这个项目的起源和一些粗浅的特性。
+上面只是介绍了 `sloty` 这个项目的起源和一些粗浅的特性。
 
 如果你是一个命令行开发爱好者，我强烈建议你
 
-1. 移步 [cli-wrapper文档](https://github.com/mohism-framework/cli-wrapper) 并尝试开发出一个命令行工具
-2. 向 [这个地方](https://github.com/mohism-framework/cli-wrapper/issues)提出你宝贵的建议
+1. 移步 [sloty文档](https://github.com/mohism-framework/sloty) 并尝试开发出一个命令行工具
+2. 向 [这个地方](https://github.com/mohism-framework/sloty/issues)提出你宝贵的建议
 3. 或者直接联系我们，交流一下命令行的开发心得。
 
 ![](../assets/11.png)

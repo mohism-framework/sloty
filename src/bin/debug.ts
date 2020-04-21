@@ -25,8 +25,8 @@ import yargs = require('yargs');
   if (mode === 'ts') {
     // ts mode
     const script = `
-    import { IAction } from '@mohism/cli-wrapper/dist/libs/action.class';
-    import { unifiedArgv } from '@mohism/cli-wrapper/dist/libs/utils/func';
+    import { IAction } from '@mohism/sloty/dist/libs/action.class';
+    import { unifiedArgv } from '@mohism/sloty/dist/libs/utils/func';
     import Debug from '${file.replace('.ts', '')}';
     const argv:any = ${JSON.stringify(argv).replace(/"/g, '\'')};
     (Debug as IAction).run(unifiedArgv(argv, Debug.options()));
@@ -42,7 +42,7 @@ import yargs = require('yargs');
     // js mode
     const script = `
     const argv = ${JSON.stringify(argv).replace(/"/g, '\'')};
-    const { unifiedArgv } = require('@mohism/cli-wrapper/dist/libs/utils/func');
+    const { unifiedArgv } = require('@mohism/sloty/dist/libs/utils/func');
     const Debug = require('${file}');
     Debug.run(unifiedArgv(argv, Debug.options()));
     `;
