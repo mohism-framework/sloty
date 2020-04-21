@@ -3,3 +3,6 @@ src
 tsconfig.json
 .DS_Store
 node_modules
+*.map
+.nyc_output
+coverage

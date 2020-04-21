@@ -4,7 +4,7 @@ import shelljs, { ExecOptions, ExecOutputReturnValue } from 'shelljs';
 import Command from './command.class';
 import Question, { IQuestion } from './question.class';
 import { IStorage } from './storage.class';
-import { ArgvOption, ExitCode } from './utils/type';
+import { ArgvOption } from './utils/type';
 
 export interface IAction {
   options(): Dict<ArgvOption>;
@@ -44,7 +44,7 @@ abstract class ActionBase implements IAction {
   get question(): IQuestion {
     return Question;
   }
-  exec(cmd: string, options: ExecOptions): ExitCode {
+  exec(cmd: string, options: ExecOptions): number {
     return (shelljs.exec(cmd, options) as ExecOutputReturnValue).code;
   }
 }

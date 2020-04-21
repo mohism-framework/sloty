@@ -1,5 +1,5 @@
 import { Dict, rightpad } from "@mohism/utils";
-import { ArgvOption, IBooleanMap } from "./type";
+import { ArgvOption } from "./type";
 import yargs = require("yargs");
 import { EOL } from "os";
 import { IAction } from "../action.class";
@@ -10,7 +10,7 @@ import { existsSync, mkdirSync, writeFileSync } from "fs";
 
 const typeOption = (option: string): string | boolean | number => {
   if (['true', 'false'].includes(option)) {
-    return ({ 'true': true, 'false': false } as IBooleanMap)[option];
+    return ({ 'true': true, 'false': false } as Dict<boolean>)[option];
   }
   if (!Number.isNaN(+option)) {
     return +option;

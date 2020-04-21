@@ -1,20 +1,20 @@
 {
-  "name": "@mohism/cli-wrapper",
-  "version": "1.3.22",
+  "name": "@mohism/sloty",
+  "version": "1.0.1",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
-    "init-wrapper": "./dist/bin/init.js",
+    "init": "./dist/bin/init.js",
     "gen-cmd": "./dist/bin/gen.js",
     "debug-cmd": "./dist/bin/debug.js",
     "cli-complete": "./dist/bin/cli-complete.js"
   },
   "scripts": {
-    "build": "npx eslint src/**/*.ts --fix && npx tsc",
-    "lint": "npx eslint src/**/*.ts --fix",
-    "postinstall": "echo 'Run  \"npx init-wrapper\"'",
+    "build": "npx tsc",
+    "lint": "npx eslint src/**/*.ts --cache --fix",
+    "postinstall": "echo 'Run  \"npx init\"'",
     "start": "npx ts-node ./src/bin/index.ts",
-    "test": "npx mocha --require ts-node/register **/*.spec.ts",
-    "cover": "npx nyc mocha --require ts-node/register **/*.spec.ts"
+    "test": "npx mocha --recursive -r ts-node/register test/**/*.spec.ts",
+    "cover": "npx nyc npm test"
   },
   "keywords": [
     "mohism",
@@ -24,17 +24,20 @@
   "author": "lanhao",
   "license": "ISC",
   "devDependencies": {
+    "@types/chai": "^4.2.7",
     "@types/colors": "^1.2.1",
     "@types/inquirer": "^6.5.0",
+    "@types/mocha": "^5.2.7",
     "@types/node": "^12.7.12",
     "@typescript-eslint/eslint-plugin": "^2.5.0",
     "@typescript-eslint/parser": "^2.5.0",
     "chai": "^4.2.0",
     "dts-gen": "^0.5.8",
     "eslint": "^6.5.1",
+    "husky": "^3.1.0",
     "mocha": "^6.2.2",
-    "nodemon": "^1.19.4",
-    "nyc": "^14.1.1",
+    "nodemon": "^2.0.2",
+    "nyc": "^15.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
@@ -48,7 +51,7 @@
     "shelljs": "^0.8.3",
     "yargs": "^14.2.0"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mohism-framework/cli-wrapper.git"
@@ -56,5 +59,10 @@
   "bugs": {
     "url": "https://github.com/mohism-framework/cli-wrapper/issues"
   },
-  "homepage": "https://github.com/mohism-framework/cli-wrapper#readme"
+  "homepage": "https://github.com/mohism-framework/cli-wrapper#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint & npm test"
+    }
+  }
 }
