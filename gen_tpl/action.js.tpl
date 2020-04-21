@@ -1,5 +1,5 @@
 require('colors');
-const ActionBase = require('@mohism/cli-wrapper/dist/libs/action.class').default;
+const { ActionBase } = require('@mohism/sloty');
 
 class _FOO_Action extends ActionBase {
   options() {

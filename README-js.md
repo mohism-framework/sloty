@@ -1,6 +1,6 @@
 ### 推荐阅读
 
-  [`cli-wrapper`的起源](./doc/about.md)
+  [`sloty`的起源](./doc/about.md)
   
 ### Init
 
@@ -12,7 +12,7 @@
 
 ### Install Deps
 >
-> npm i @mohism/cli-wrapper
+> npm i @mohism/sloty
 > 
 > (wait ...)
 > 

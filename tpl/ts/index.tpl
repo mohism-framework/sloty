@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { resolve } from 'path';
-import Command from '@mohism/cli-wrapper/dist/libs/command.class';
+import Command from '@mohism/sloty';
 import Hello from '../commands/hello-world.action';
 
 const pkg = require('../../package.json');

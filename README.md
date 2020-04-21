@@ -1,11 +1,11 @@
 ### 推荐阅读
 
-  [`cli-wrapper`的起源](./doc/about.md)
+  [`sloty`的起源](./doc/about.md)
 
   [实用手册: ActionBase API](./doc/action-apis.md)
 
   
-### Mohism cli-wrapper  
+### Mohism sloty  
 
 更简单的开发你的命令行工具，
 
@@ -29,7 +29,7 @@
 
 ### Install Deps
 >
-> npm i @mohism/cli-wrapper
+> npm i @mohism/sloty
 > 
 > (wait ...)
 > 
