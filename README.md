@@ -2,8 +2,6 @@
 
   [`sloty`的起源](./doc/about.md)
 
-  [实用手册: ActionBase API](./doc/action-apis.md)
-
   
 ### Mohism sloty  
 
@@ -60,3 +58,7 @@
 [命令开发指南 - 项目内开发](./doc/ts/DEV_GUIDE_1.md)
 
 [命令开发指南 - 作为npm包](./doc/ts/DEV_GUIDE_2.md)
+
+[实用手册: ActionBase API](./doc/action-apis.md)
+
+[命令自动补全](./doc/complete.md)
