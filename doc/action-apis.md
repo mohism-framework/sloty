@@ -127,7 +127,22 @@ const lang = await this.question.select(
 	['typescript', 'javascript'], 
 	'javascript'
 );
-	
+// 也支持使用 ICustomerOption 接口类型自定义显示名
+const lang = await this.question.select(
+	'选择语言', 
+	[
+		{
+			value:'typescript',
+			label:'我用TS!',
+		},
+		{
+			value:'javascript',
+			label:'我用JS!',
+		}
+	], 
+	'javascript'
+);
+
 // 输入， 默认值 Thanos
 const name = await this.question.input('请输入名字', 'Thanos');
 	
