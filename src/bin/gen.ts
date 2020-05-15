@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 import { red } from 'colors';
-import { readFileSync, existsSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
-import Question from '../libs/question.class';
+
+import Question, { ICustomerOption } from '../libs/question.class';
 
 const unifiedName = (name: string): string => {
   const result: Array<string> = [];
@@ -12,16 +13,22 @@ const unifiedName = (name: string): string => {
   return result.join('');
 };
 
-const EXTS: Array<string> = [
-  'ts',
-  'js',
+const EXTS: Array<ICustomerOption> = [
+  {
+    value: 'ts',
+    label: 'typescript',
+  },
+  {
+    value: 'js',
+    label: 'javascript',
+  },
 ];
 
 (async () => {
   const name: string = await Question.input('input name:', 'foo');
   const ext: number = await Question.select('use Javascript or Typescript:', EXTS);
 
-  const content = readFileSync(resolve(`${__dirname}/../../gen_tpl/action.${EXTS[ext]}.tpl`)).toString();
+  const content = readFileSync(resolve(`${__dirname}/../../gen_tpl/action.${ext}.tpl`)).toString();
   let outDir = './';
   if (existsSync('./src')) {
     outDir = './src';
@@ -29,7 +36,7 @@ const EXTS: Array<string> = [
       outDir = './src/commands';
     }
   }
-  const outFile = resolve(`${process.cwd()}/${outDir}/${name.toLowerCase()}.action.${EXTS[ext]}`);
+  const outFile = resolve(`${process.cwd()}/${outDir}/${name.toLowerCase()}.action.${ext}`);
   writeFileSync(
     outFile,
     content.replace(/_FOO_/g, unifiedName(name)),

@@ -16,7 +16,7 @@
 > 
 > (wait ...)
 > 
-> npx init-wrapper
+> npx init
 >
 > (select js)
 

@@ -30,7 +30,8 @@ const cmdName =
 
 pkg.scripts = Object.assign(pkg.scripts, {
   postinstall: `echo "\n" && Run "${cmdName} --complete" enable completion.  && echo "\n"`,
-  start: `echo "run 'sudo npm link' and '${cmdName} -h'"`,
+  build: 'npx tsc',
+  start: `echo "run 'npm run build' and 'sudo npm link' and '${cmdName} -h'"`,
 });
 
 (async () => {
@@ -75,8 +76,9 @@ pkg.scripts = Object.assign(pkg.scripts, {
     pkg.mohismInit = true;
     pkg.mohismCmd = cmdName;
     writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
-    console.log(yellow('--- waiting ---'));
+    console.log(yellow('--- waiting for install dependences ---'));
     shelljs.exec('npm i typescript @types/node ts-node -D');
+    shelljs.exec('npm i @mohism/utils');
   } else {
     // js
     copyFileSync(
@@ -93,6 +95,8 @@ pkg.scripts = Object.assign(pkg.scripts, {
     pkg.mohismInit = true;
     pkg.mohismCmd = cmdName;
     writeFileSync(`${root}/package.json`, JSON.stringify(pkg, null, INDENT));
+    console.log(yellow('--- waiting for install dependences ---'));
+    shelljs.exec('npm i @mohism/utils');
   }
 })().then(() => {
   console.log(green('Done!'));
