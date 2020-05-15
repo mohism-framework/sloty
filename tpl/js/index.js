@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const path = require('path');
-const Command = require('@mohism/sloty');
+const { Command } = require('@mohism/sloty');
 const Hello = require('./hello-world.action');
 
 const pkg = require('./package.json');

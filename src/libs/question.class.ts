@@ -1,19 +1,52 @@
 import inquirer from 'inquirer';
+import { Dict } from '@mohism/utils';
+
+export interface ICustomerOption {
+  value: string;
+  label: string;
+}
+
+type Selection = Array<string> | Dict<string> | Array<ICustomerOption>;
 
 export interface IQuestion {
-  select(prompt: string, choices: Array<any>, defaultValue?: any): Promise<any>;
+  select(prompt: string, choices: Selection, defaultValue?: any): Promise<any>;
   input(prompt: string, defaultValue?: any): Promise<any>;
   checkbox(prompt: string, choices: Array<any>): Promise<any>;
   confirm(prompt: string, defaultValue?: boolean): Promise<boolean>;
 }
 
 class Question implements IQuestion {
-  async select(prompt: string, choices: Array<any>, defaultValue?: any): Promise<any> {
+  async select(prompt: string, choices: Selection, defaultValue?: any): Promise<any> {
+    const formatChoices = [];
+    if (Array.isArray(choices)) {
+      choices.forEach((choise: String | ICustomerOption) => {
+        if (typeof choise === 'string') {
+          formatChoices.push({
+            name: choise,
+            value: choise,
+          });
+        } else {
+          const { value, label: name } = choise as ICustomerOption;
+          formatChoices.push({
+            name,
+            value,
+          });
+        }
+      });
+    } else {
+      for (let k in choices) {
+        formatChoices.push({
+          name: choices[k],
+          value: k,
+        });
+      }
+    }
+
     const answer = await inquirer.prompt([
       {
         type: 'list',
         name: 'sl',
-        choices: choices.map((v, i) => { return { name: v, value: i }; }),
+        choices: formatChoices,
         message: prompt,
         default: defaultValue,
       }
@@ -33,7 +66,7 @@ class Question implements IQuestion {
     return answer.input;
   }
 
-  async checkbox(prompt: string, choices: Array<any>): Promise<any> {
+  async checkbox(prompt: string, choices: Array<string>): Promise<any> {
     const answer = await inquirer.prompt([
       {
         type: 'checkbox',

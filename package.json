@@ -1,6 +1,6 @@
 {
   "name": "@mohism/sloty",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
     "init": "./dist/bin/init.js",
