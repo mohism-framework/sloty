@@ -1,11 +1,11 @@
 {
   "name": "@mohism/sloty",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
-    "init": "./dist/bin/init.js",
-    "gen-cmd": "./dist/bin/gen.js",
-    "debug-cmd": "./dist/bin/debug.js",
+    "sloty-init": "./dist/bin/init.js",
+    "sloty-gen": "./dist/bin/gen.js",
+    "sloty-debug": "./dist/bin/debug.js",
     "cli-complete": "./dist/bin/cli-complete.js"
   },
   "scripts": {

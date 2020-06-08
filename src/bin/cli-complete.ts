@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/**
+ * @deprecated 这个文件暂时不再使用
+ */
 import { appendFileSync, existsSync, readFileSync, writeFileSync } from 'fs';
 import { EOL } from 'os';
 import { join, resolve } from 'path';

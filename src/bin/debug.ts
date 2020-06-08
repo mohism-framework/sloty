@@ -54,7 +54,6 @@ import yargs = require('yargs');
       stdio: 'inherit',
     });
   }
-
 })().then(() => {
   process.exit();
 }).catch(e => {
