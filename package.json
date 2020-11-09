@@ -1,6 +1,6 @@
 {
   "name": "@mohism/sloty",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
     "sloty-init": "./dist/bin/init.js",
@@ -11,7 +11,7 @@
   "scripts": {
     "build": "npx tsc",
     "lint": "npx eslint src/**/*.ts --cache --fix",
-    "postinstall": "echo 'Run  \"npx init\"'",
+    "postinstall": "echo 'Run  \"npx sloty-init\"'",
     "start": "npx ts-node ./src/bin/index.ts",
     "test": "npx mocha --recursive -r ts-node/register test/**/*.spec.ts",
     "cover": "npx nyc npm test"
@@ -35,7 +35,7 @@
     "dts-gen": "^0.5.8",
     "eslint": "^6.5.1",
     "husky": "^3.1.0",
-    "mocha": "^6.2.2",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "ts-node": "^8.4.1",
