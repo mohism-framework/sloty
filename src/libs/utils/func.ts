@@ -3,7 +3,7 @@ import { ArgvOption } from "./type";
 import yargs = require("yargs");
 import { EOL } from "os";
 import { IAction } from "../action.class";
-import { grey, yellow, blue, green } from "colors";
+import { grey, yellow, green } from "colors";
 import { resolve, join } from "path";
 import { existsSync, mkdirSync, writeFileSync } from "fs";
 
@@ -128,6 +128,17 @@ export const compreply = (cmd: string, handlers: Map<string, IAction>) => {
   })();
   console.log(`\nRun ${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}`);
   console.log(`Or Append "${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}"`);
-  console.log(`into end of ${blue(rcFile)}`);
-  console.log(`to enable ${green('completion')}. 命令补全啊死鬼！${EOL}`);
+  console.log(`into end of ${green(rcFile)} to enable ${green('completion')}.${EOL}`);
 };
+
+export const ensurePath = (p: string): void => {
+  if (!existsSync(p)) {
+    mkdirSync(p);
+  }
+}
+
+export const ensureFile = (f: string, content: string = ''): void => {
+  if (!existsSync(f)) {
+    writeFileSync(f, content);
+  }
+}

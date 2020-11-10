@@ -2,7 +2,7 @@
 
 import { resolve } from 'path';
 import { Command } from '@mohism/sloty';
-import Hello from '../commands/hello-world.action';
+import Plugin from '../commands/plugin.action';
 
 const pkg = require('../../package.json');
 
@@ -15,7 +15,7 @@ const instance = new Command({
 });
 
 // register
-instance.add('hello', Hello);
+instance.add('plugin', Plugin);
 
 // run
 instance.run();

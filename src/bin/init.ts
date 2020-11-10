@@ -17,6 +17,12 @@ if (!existsSync(`${root}/package.json`)) {
 }
 
 const pkg = require(`${root}/package.json`);
+
+if (!pkg.name) {
+  console.log(`🚫 [${red('name')}] not set in your package.json`);
+  process.exit(0);
+}
+
 const INDENT: number = 2;
 
 if (pkg.mohismInit) {
@@ -28,8 +34,8 @@ const cmdName =
     pkg.name.split('/')[1]
     : pkg.name;
 
-pkg.scripts = Object.assign(pkg.scripts, {
-  postinstall: `echo "\n" && Run "${cmdName} --complete" enable completion.  && echo "\n"`,
+pkg.scripts = Object.assign(pkg.scripts || {}, {
+  postinstall: `echo ' 运行 "${cmdName} --complete" 启用自动补全.'`,
   build: 'npx tsc',
   start: `echo "run 'npm run build' and 'sudo npm link' and '${cmdName} -h'"`,
 });
@@ -64,6 +70,10 @@ pkg.scripts = Object.assign(pkg.scripts, {
 
     if (!existsSync(`${root}/src/commands`)) {
       mkdirSync(`${root}/src/commands`);
+      copyFileSync(
+        `${__dirname}/../../tpl/ts/plugin.action.tpl`,
+        `${root}/src/commands/plugin.action.ts`,
+      );
       copyFileSync(
         `${__dirname}/../../tpl/ts/hello-world.action.tpl`,
         `${root}/src/commands/hello-world.action.ts`,

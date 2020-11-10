@@ -17,9 +17,11 @@ export interface IAction {
 
 abstract class ActionBase implements IAction {
   instance: Command = {} as Command;
+
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
   abstract run(options?: Dict<any>): Promise<any>;
+  
   setInstance(instance: Command): void {
     this.instance = instance;
   }

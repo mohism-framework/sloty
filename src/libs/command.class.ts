@@ -1,11 +1,11 @@
-import { rightpad } from '@mohism/utils';
-import { grey, red, yellow, rainbow } from 'colors';
+import { rightpad, toabcDef } from '@mohism/utils';
+import { grey, rainbow, red, yellow } from 'colors';
 import { EOL } from 'os';
 import yargs = require('yargs');
 
 import { IAction } from './action.class';
 import Storage, { IStorage } from './storage.class';
-import { compreply, unifiedHelp, unifiedArgv, prettyDesc } from './utils/func';
+import { compreply, ensureFile, ensurePath, prettyDesc, unifiedArgv, unifiedHelp } from './utils/func';
 
 class Command {
   // 命令名
@@ -14,6 +14,9 @@ class Command {
   root: string;
   // 运行系统的home目录，可以读写用户的数据
   home: string;
+  // 插件目录
+  pluginRoot: string = '';
+  plugins: string[] = [];
   // 命令版本
   version: string;
   yargs: yargs.Argv;
@@ -29,6 +32,7 @@ class Command {
     this.yargs = yargs.epilog('Power by LANHAO'.green).help(false);
     this.handlers = new Map();
     this.storage = new Storage(this.home, this.name);
+    this.autoload();
     process.on('exit', () => {
       console.log(`${EOL}${grey('power by ')}${this.power}`);
     });
@@ -48,12 +52,38 @@ class Command {
   }
 
   /**
+   * 扫描并注册全部命令
+   */
+  autoload(): void {
+    try {
+      const cmdHome = `${this.home}/.${this.name}`;
+      ensurePath(cmdHome);
+      const pluginRoot = `${cmdHome}/plugins`;
+      ensurePath(pluginRoot);
+      ensureFile(`${pluginRoot}/package.json`, JSON.stringify({}, null, 2));
+
+      this.pluginRoot = pluginRoot;
+      this.plugins = Object.keys(require(`${pluginRoot}/package.json`).dependencies || {});
+
+      // this.add()
+      this.plugins.forEach(plugin => {
+        const pkg = require(`${pluginRoot}/node_modules/${plugin}`).default;
+        const name = toabcDef(pkg.constructor.name.replace('Action', ''));
+        this.add(name, pkg);
+      });
+    } catch (e) {
+      console.trace(e);
+    }
+
+  }
+
+  /**
    * 运行
    */
   async run(): Promise<any> {
     const { argv } = this.yargs;
     if (argv.complete) {
-      compreply(this.yargs.argv.$0, this.handlers);
+      compreply(this.name, this.handlers);
       process.exit();
     }
     // global help
@@ -93,7 +123,7 @@ class Command {
   globalHelp(): void {
     const subCommands = Array.from(this.handlers.keys());
     const outputs: Array<string> = [];
-    outputs.push(yellow(`${this.yargs.argv.$0} <command>`));
+    outputs.push(yellow(`${this.name} <command>`));
     outputs.push(`${EOL}command:`);
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);

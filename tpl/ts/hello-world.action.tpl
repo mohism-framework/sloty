@@ -19,7 +19,7 @@ class HelloAction extends ActionBase {
     return 'helping a hello';
   }
 
-  async run(argv: Dict<any>) {
+  async run(options: Dict<any>) {
     // 输出INFO
     this.info('this is INFO');
     // 输出WARN
@@ -28,10 +28,10 @@ class HelloAction extends ActionBase {
     this.err('this is ERR');
 
     // 输出命令行参数
-    this.info(argv);
+    this.info(options);
 
     // 真正的逻辑
-    const { word, c } = argv;
+    const { word, c } = options;
     console.log(`Hello ${word[c]}`);
   }
 }
