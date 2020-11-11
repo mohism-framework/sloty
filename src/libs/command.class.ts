@@ -1,6 +1,7 @@
-import { rightpad, toabcDef } from '@mohism/utils';
+import { rightpad } from '@mohism/utils';
 import { grey, rainbow, red, yellow } from 'colors';
 import { EOL } from 'os';
+import { basename } from 'path';
 import yargs = require('yargs');
 
 import { IAction } from './action.class';
@@ -68,7 +69,7 @@ class Command {
       // this.add()
       this.plugins.forEach(plugin => {
         const pkg = require(`${pluginRoot}/node_modules/${plugin}`).default;
-        const name = toabcDef(pkg.constructor.name.replace('Action', ''));
+        const name = basename(plugin);
         this.add(name, pkg);
       });
     } catch (e) {
@@ -128,7 +129,7 @@ class Command {
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);
       if (action) {
-        outputs.push(`${rightpad('', 6)}${rightpad(actionName, 16)}${prettyDesc(action.description(), grey, 22)}`);
+        outputs.push(`${rightpad('', 6)}${rightpad(actionName, 16)}${grey(prettyDesc(action.description()))}`);
       }
     });
 
