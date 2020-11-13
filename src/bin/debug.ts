@@ -10,8 +10,9 @@ import yargs = require('yargs');
     console.log(`Usage: ${yellow('npx sloty-debug xxx')}`);
     process.exit();
   }
-  const restOptions = process.argv.slice(2);
+  const restOptions = process.argv.slice(3);
   const argv = yargs.parse(restOptions.join(' '));
+  
   delete argv.$0;
 
   const file = resolve(`${process.cwd()}/${process.argv[2]}`);
@@ -20,11 +21,8 @@ import yargs = require('yargs');
     process.exit();
   }
 
-  const mode = file.endsWith('ts') ? 'ts' : 'js';
-
-  if (mode === 'ts') {
-    // ts mode
-    const script = `
+  // ts mode
+  const script = `
     import { IAction } from '@mohism/sloty/dist/libs/action.class';
     import Command from '@mohism/sloty/dist/libs/command.class';
     import { unifiedArgv } from '@mohism/sloty/dist/libs/utils/func';
@@ -40,29 +38,14 @@ import yargs = require('yargs');
     const argv:any = ${JSON.stringify(argv).replace(/"/g, '\'')};
     (Debug as IAction).run(unifiedArgv(argv, Debug.options()));
     `;
-    spawnSync('npx', [
-      'ts-node',
-      '-e',
-      script,
-    ], {
-      stdio: 'inherit',
-    });
-  } else {
-    // js mode
-    const script = `
-    const argv = ${JSON.stringify(argv).replace(/"/g, '\'')};
-    const { unifiedArgv } = require('@mohism/sloty/dist/libs/utils/func');
-    const Debug = require('${file}');
-    Debug.run(unifiedArgv(argv, Debug.options()));
-    `;
+  spawnSync('npx', [
+    'ts-node',
+    '-e',
+    script,
+  ], {
+    stdio: 'inherit',
+  });
 
-    spawnSync('node', [
-      '-e',
-      script,
-    ], {
-      stdio: 'inherit',
-    });
-  }
 })().then(() => {
   process.exit();
 }).catch(e => {

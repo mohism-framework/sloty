@@ -8,23 +8,33 @@ import { ArgvOption } from './utils/type';
 
 const logger = Logger();
 
+export interface IWithSubCommands extends Dict<any> {
+  subCommands: string[];
+}
+
 export interface IAction {
   options(): Dict<ArgvOption>;
   description(): string;
-  run(options?: Dict<any>): Promise<any>;
+  run(options?: IWithSubCommands): Promise<any>;
   setInstance(instance: Command): void;
+  [key: string]: any;
 }
 
 abstract class ActionBase implements IAction {
   instance: Command = {} as Command;
-
+  version: string = '-';
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
   abstract run(options?: Dict<any>): Promise<any>;
-  
+
   setInstance(instance: Command): void {
     this.instance = instance;
   }
+
+  setVersion(version: string): void {
+    this.version = version;
+  }
+
   info(ctx: any): void {
     logger.info(ctx);
   }

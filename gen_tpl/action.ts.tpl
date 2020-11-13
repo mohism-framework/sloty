@@ -1,4 +1,4 @@
-import { ActionBase, ArgvOption } from '@mohism/sloty';
+import { ActionBase, ArgvOption, IWithSubCommands } from '@mohism/sloty';
 import { Dict } from '@mohism/utils';
 
 class _FOO_Action extends ActionBase {
@@ -10,7 +10,7 @@ class _FOO_Action extends ActionBase {
     return `I am FOO`;
   }
 
-  async run(options?: Dict<any>): Promise<any> {
+  async run(options: IWithSubCommands): Promise<any> {
     // start here
   }
 }

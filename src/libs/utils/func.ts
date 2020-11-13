@@ -5,7 +5,7 @@ import { EOL } from 'os';
 import { join, resolve } from 'path';
 import yargs = require('yargs');
 
-import { IAction } from '../action.class';
+import { IAction, IWithSubCommands } from '../action.class';
 import { ArgvOption } from './type';
 
 
@@ -23,8 +23,10 @@ const typeOption = (option: string): string | boolean | number => {
 * @param {Object} argv yargs参数实例
 * @param {Object} defaultOptions IAction.options()
 */
-export const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>): Dict<any> => {
-  const options: Dict<any> = {};
+export const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>): IWithSubCommands => {
+  const options: IWithSubCommands = {
+    subCommands: argv._,
+  };
   Object.keys(defaultOptions).forEach((key: string) => {
     const t = typeOption(argv[key] as string);
     options[key] = t !== undefined ? t : defaultOptions[key].default;

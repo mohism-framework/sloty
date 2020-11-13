@@ -68,9 +68,11 @@ class Command {
 
       // this.add()
       this.plugins.forEach(plugin => {
-        const pkg = require(`${pluginRoot}/node_modules/${plugin}`).default;
+        const action = require(`${pluginRoot}/node_modules/${plugin}`).default;
+        const pkg = require(`${pluginRoot}/node_modules/${plugin}/package.json`);
+        action.setVersion(pkg.version);
         const name = basename(plugin);
-        this.add(name, pkg);
+        this.add(name, action);
       });
     } catch (e) {
       console.trace(e);

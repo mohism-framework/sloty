@@ -1,4 +1,4 @@
-import { ActionBase, ArgvOption } from '@mohism/sloty';
+import { ActionBase, ArgvOption, IWithSubCommands } from '@mohism/sloty';
 import { Dict } from '@mohism/utils';
 
 class HelloAction extends ActionBase {
@@ -19,7 +19,7 @@ class HelloAction extends ActionBase {
     return 'helping a hello';
   }
 
-  async run(options: Dict<any>) {
+  async run(options: IWithSubCommands) {
     // 输出INFO
     this.info('this is INFO');
     // 输出WARN
