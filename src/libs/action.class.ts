@@ -15,7 +15,7 @@ export interface IWithSubCommands extends Dict<any> {
 export interface IAction {
   options(): Dict<ArgvOption>;
   description(): string;
-  run(options?: IWithSubCommands): Promise<any>;
+  run(options?: IWithSubCommands): Promise<void>;
   setInstance(instance: Command): void;
   [key: string]: any;
 }
@@ -25,7 +25,7 @@ abstract class ActionBase implements IAction {
   version: string = '-';
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
-  abstract run(options?: Dict<any>): Promise<any>;
+  abstract run(options?: Dict<any>): Promise<void>;
 
   setInstance(instance: Command): void {
     this.instance = instance;

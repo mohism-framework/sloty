@@ -10,7 +10,7 @@ import yargs = require('yargs');
     console.log(`Usage: ${yellow('npx sloty-debug xxx')}`);
     process.exit();
   }
-  const restOptions = process.argv.slice(3);
+  const restOptions = process.argv.slice(2);
   const argv = yargs.parse(restOptions.join(' '));
   
   delete argv.$0;

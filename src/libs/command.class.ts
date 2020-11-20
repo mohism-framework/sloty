@@ -70,7 +70,7 @@ class Command {
       this.plugins.forEach(plugin => {
         const action = require(`${pluginRoot}/node_modules/${plugin}`).default;
         const pkg = require(`${pluginRoot}/node_modules/${plugin}/package.json`);
-        action.setVersion(pkg.version);
+        action.setVersion && action.setVersion(pkg.version);
         const name = basename(plugin);
         this.add(name, action);
       });
@@ -83,7 +83,7 @@ class Command {
   /**
    * 运行
    */
-  async run(): Promise<any> {
+  async run(): Promise<void> {
     const { argv } = this.yargs;
     if (argv.complete) {
       compreply(this.name, this.handlers);
@@ -103,8 +103,10 @@ class Command {
     const action: IAction | undefined = this.handlers.get(argv._[0]);
     if (action) {
       try {
-        if (argv._[1] === 'help' || argv.h || argv.help) {
+        if (argv.h || argv.help) {
           console.log(unifiedHelp(action, argv._[0], this.root));
+        } else if (argv.v || argv.versionÎ) {
+          console.log(`Cureent Version: ${action.version}`);
         } else {
           await action.run(unifiedArgv(argv, action.options()));
         }
