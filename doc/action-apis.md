@@ -30,9 +30,9 @@ description(): string {
 }
 ```
 
-#### ✏️ *abstract* run(options?: Dict\<any>): Promise<any>
+#### ✏️ *abstract* run(options?: IWithSubCommands): Promise<void>
 
-开发者需要编写 `async run(options?: Dict<any>)`的实现。
+开发者需要编写 `async run(options?: IWithSubCommands)`的实现。
 
 **具体的命令运行时，执行的就是此处的代码。** 
 
@@ -41,7 +41,7 @@ description(): string {
 例子: 
 
 ```javascript
-async run(options?: Dict<any>): Promise<any> {
+async run(options?: IWithSubCommands): Promise<void> {
 	const { color } = options; // 会从上面 options() 的定义里得到命令行参数
 	await killThanos(1/2);  // 杀死半个灭霸
 	this.done('kill 1/2 Thanos');

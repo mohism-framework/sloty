@@ -60,3 +60,5 @@
 [实用手册: ActionBase API](./doc/action-apis.md)
 
 [命令自动补全](./doc/complete.md)
+
+[🔥“热插拔”命令](./doc/plugin.md)
