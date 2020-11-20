@@ -10,7 +10,7 @@ class _FOO_Action extends ActionBase {
     return `I am FOO`;
   }
 
-  async run(options: IWithSubCommands): Promise<any> {
+  async run(options: IWithSubCommands): Promise<void> {
     // start here
   }
 }

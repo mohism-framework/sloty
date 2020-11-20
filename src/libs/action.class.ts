@@ -25,7 +25,7 @@ abstract class ActionBase implements IAction {
   version: string = '-';
   abstract options(): Dict<ArgvOption>;
   abstract description(): string;
-  abstract run(options?: Dict<any>): Promise<void>;
+  abstract run(options?: IWithSubCommands): Promise<void>;
 
   setInstance(instance: Command): void {
     this.instance = instance;
@@ -58,7 +58,7 @@ abstract class ActionBase implements IAction {
   get question(): IQuestion {
     return Question;
   }
-  exec(cmd: string, options: ExecOptions): number {
+  exec(cmd: string, options: ExecOptions = { silent: false }): number {
     return (shelljs.exec(cmd, options) as ExecOutputReturnValue).code;
   }
 }
