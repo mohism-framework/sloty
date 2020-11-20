@@ -30,22 +30,22 @@
 
 `box-up`工具自然是要跟进的，于是就有了下面的操作：
 
- - 开发人员在`box-up`工程里安装`build`：   **npm i @box/docker-build**
+ - 开发人员在`box-up`工程里安装`docker-build`：   **npm i @box/docker-build**
  - 开发人员重新编译发布`box-up`： **npm run build && npm publish**
  - 通过一些手段通知用户升级:  **npm i @box/box-up -g**
 
 上面这些操作，似乎还能更便捷？
 
-**于是我们提出了“热插拔”**
+**🔥 于是我们提出了“热插拔”**
 
 期望：
 
  - 用户之前安装了`box-up`: **npm i @box/box-up -g**
- - 如果用户希望在自己本地的`box-up`里集成`docker-build`: **box-up plugin add docker-build**
- - 使用一段时间后，觉得`docker-build`没什么用：  **box-up plugin remove docker-build**
+ - 如果用户希望在自己本地的`box-up`里集成`docker-build`: **box-up plugin add @box/docker-build**
+ - 使用一段时间后，觉得`docker-build`没什么用：  **box-up plugin remove @box/docker-build**
  - 如果还有其他新的功能面世，随时可以热插拔进来
 
-#### 是的，这已经不是**期望**，而是现实。
+#### 🔥 是的，这已经不是**期望**，而是现实。
 
 这个版本，上面的操作都变成现实，这给我们带来了非常大的收益。
 
@@ -53,6 +53,7 @@
 
   - 只专注于插件命令的开发，不关注集成
   - 不用频繁更新和发布 **主命令** ，或者我们叫做**基座命令**
+  - 插件命令可以独立发布升级
 
 对于末端用户：
 
