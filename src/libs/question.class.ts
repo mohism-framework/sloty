@@ -9,14 +9,14 @@ export interface ICustomerOption {
 type Selection = Array<string> | Dict<string> | Array<ICustomerOption>;
 
 export interface IQuestion {
-  select(prompt: string, choices: Selection, defaultValue?: any): Promise<any>;
-  input(prompt: string, defaultValue?: any): Promise<any>;
-  checkbox(prompt: string, choices: Array<any>): Promise<any>;
+  select(prompt: string, choices: Selection, defaultValue?: string): Promise<string>;
+  input(prompt: string, defaultValue?: string): Promise<string>;
+  checkbox(prompt: string, choices: Array<string>): Promise<Array<string>>;
   confirm(prompt: string, defaultValue?: boolean): Promise<boolean>;
 }
 
 class Question implements IQuestion {
-  async select(prompt: string, choices: Selection, defaultValue?: any): Promise<any> {
+  async select(prompt: string, choices: Selection, defaultValue?: string): Promise<string> {
     const formatChoices = [];
     if (Array.isArray(choices)) {
       choices.forEach((choise: String | ICustomerOption) => {
@@ -54,7 +54,7 @@ class Question implements IQuestion {
     return answer.sl;
   }
 
-  async input(prompt: string, defaultValue?: any): Promise<any> {
+  async input(prompt: string, defaultValue?: string): Promise<string> {
     const answer = await inquirer.prompt([
       {
         type: 'input',
@@ -66,7 +66,7 @@ class Question implements IQuestion {
     return answer.input;
   }
 
-  async checkbox(prompt: string, choices: Array<string>): Promise<any> {
+  async checkbox(prompt: string, choices: Array<string>): Promise<Array<string>> {
     const answer = await inquirer.prompt([
       {
         type: 'checkbox',

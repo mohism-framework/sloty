@@ -31,7 +31,7 @@
 > 
 > (wait ...)
 > 
-> npx init
+> npx sloty-init
 >
 > (select typescript)
 

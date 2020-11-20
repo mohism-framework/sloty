@@ -1,17 +1,17 @@
 {
   "name": "@mohism/sloty",
-  "version": "1.0.6",
+  "version": "1.2.7",
   "description": "以插件的方式创建你的命令行工具",
   "bin": {
-    "init": "./dist/bin/init.js",
-    "gen-cmd": "./dist/bin/gen.js",
-    "debug-cmd": "./dist/bin/debug.js",
+    "sloty-init": "./dist/bin/init.js",
+    "sloty-gen": "./dist/bin/gen.js",
+    "sloty-debug": "./dist/bin/debug.js",
     "cli-complete": "./dist/bin/cli-complete.js"
   },
   "scripts": {
     "build": "npx tsc",
     "lint": "npx eslint src/**/*.ts --cache --fix",
-    "postinstall": "echo 'Run  \"npx init\"'",
+    "postinstall": "echo 'Run  \"npx sloty-init\"'",
     "start": "npx ts-node ./src/bin/index.ts",
     "test": "npx mocha --recursive -r ts-node/register test/**/*.spec.ts",
     "cover": "npx nyc npm test"
@@ -35,20 +35,20 @@
     "dts-gen": "^0.5.8",
     "eslint": "^6.5.1",
     "husky": "^3.1.0",
-    "mocha": "^6.2.2",
+    "mocha": "^8.2.1",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "ts-node": "^8.4.1",
     "typescript": "^3.6.4"
   },
   "dependencies": {
-    "@mohism/utils": "^1.1.3",
+    "@mohism/utils": "^1.1.8",
     "@types/shelljs": "^0.8.5",
     "@types/yargs": "^13.0.3",
     "colors": "^1.4.0",
     "dayjs": "^1.8.16",
     "inquirer": "^7.0.0",
-    "shelljs": "^0.8.3",
+    "shelljs": "^0.8.4",
     "yargs": "^14.2.0"
   },
   "main": "dist/index.js",

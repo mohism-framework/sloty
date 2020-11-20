@@ -1,11 +1,12 @@
-import { Dict, rightpad } from "@mohism/utils";
-import { ArgvOption } from "./type";
-import yargs = require("yargs");
-import { EOL } from "os";
-import { IAction } from "../action.class";
-import { grey, yellow, blue, green } from "colors";
-import { resolve, join } from "path";
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+import { Dict, rightpad } from '@mohism/utils';
+import { green, reset, yellow } from 'colors';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
+import { EOL } from 'os';
+import { join, resolve } from 'path';
+import yargs = require('yargs');
+
+import { IAction, IWithSubCommands } from '../action.class';
+import { ArgvOption } from './type';
 
 
 const typeOption = (option: string): string | boolean | number => {
@@ -22,8 +23,10 @@ const typeOption = (option: string): string | boolean | number => {
 * @param {Object} argv yargs参数实例
 * @param {Object} defaultOptions IAction.options()
 */
-export const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>): Dict<any> => {
-  const options: Dict<any> = {};
+export const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOption>): IWithSubCommands => {
+  const options: IWithSubCommands = {
+    subCommands: argv._,
+  };
   Object.keys(defaultOptions).forEach((key: string) => {
     const t = typeOption(argv[key] as string);
     options[key] = t !== undefined ? t : defaultOptions[key].default;
@@ -37,22 +40,22 @@ export const unifiedArgv = (argv: typeof yargs.argv, defaultOptions: Dict<ArgvOp
  * @param color 颜色
  * @param prefix 换行后前面的缩进
  */
-export const prettyDesc = (desc: string, color: Function, prefix: number, line: number = 32): string => {
+export const prettyDesc = (desc: string, prefix: number = 22, line: number = 32): string => {
   const outputs: Array<string> = [];
-  const bits: Array<string> = Array.from(desc);
+  const bits: Array<string> = Array.from(reset(desc));
   let piece: string = '';
   while (bits.length > 0) {
     piece += bits[0];
-    if (piece.length > line && ([' ', ',', '，', '.', '。', ')'].includes(bits[0]) || piece.endsWith('39m'))) {
-      outputs.push(rightpad(color(piece), piece.length > line ? piece.length + 12 : line + 12));
+    if (piece.length > line && ([' ', ',', '，', '.', '。', ')'].includes(bits[0]))) {
+      outputs.push(piece);
       piece = '';
     }
     bits.shift();
   }
   if (piece.length < 6) {
-    outputs[outputs.length - 1] += color(piece);
+    outputs[outputs.length - 1] += piece;
   } else {
-    outputs.push(rightpad(color(piece), line + 12));
+    outputs.push(piece);
   }
   return outputs.join(`${EOL}${rightpad('', prefix)}`);
 };
@@ -67,7 +70,7 @@ export const unifiedHelp = (action: IAction, sub: string = '', root: string = ''
   const pkg = require(`${root}/package.json`);
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
-  const optionList = Object.keys(options).reduce((a, c) => `${a}${rightpad(`  ${c}`, 10).green}${rightpad(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc, grey, 34)}${EOL}`, '');
+  const optionList = Object.keys(options).reduce((a, c) => `${a}${rightpad(`  ${c}`, 10).green}${rightpad(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc, 34)}${EOL}`, '');
   const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr}`;
   return `${usage.green}
 
@@ -128,6 +131,17 @@ export const compreply = (cmd: string, handlers: Map<string, IAction>) => {
   })();
   console.log(`\nRun ${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}`);
   console.log(`Or Append "${yellow(`source ${writableRoot}/${cmd}_complete.sh`)}"`);
-  console.log(`into end of ${blue(rcFile)}`);
-  console.log(`to enable ${green('completion')}. 命令补全啊死鬼！${EOL}`);
+  console.log(`into end of ${green(rcFile)} to enable ${green('completion')}.${EOL}`);
 };
+
+export const ensurePath = (p: string): void => {
+  if (!existsSync(p)) {
+    mkdirSync(p);
+  }
+}
+
+export const ensureFile = (f: string, content: string = ''): void => {
+  if (!existsSync(f)) {
+    writeFileSync(f, content);
+  }
+}
