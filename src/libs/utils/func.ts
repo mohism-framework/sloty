@@ -1,7 +1,7 @@
 import { Dict, rightpad } from '@mohism/utils';
 import { green, reset, yellow } from 'colors';
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { EOL } from 'os';
+import { EOL, homedir, platform } from 'os';
 import { join, resolve } from 'path';
 import yargs = require('yargs');
 
@@ -82,6 +82,10 @@ ${optionList.grey}
 };
 
 export const compreply = (cmd: string, handlers: Map<string, IAction>) => {
+  if (platform() === 'win32') {
+    console.log('暂不支持 Windows 命令提醒。');
+    process.exit(0);
+  }
   const list = Array.from(handlers.keys());
   const subTpl = ((handlers: Map<string, IAction>): string => {
     const arr: Array<string> = [];
@@ -115,17 +119,17 @@ export const compreply = (cmd: string, handlers: Map<string, IAction>) => {
   complete -F _${cmdName}_completions ${cmdName}
   `;
   })(cmd);
-  const writableRoot: string = resolve(`${process.env.HOME}/.${cmd}`);
+  const writableRoot: string = resolve(`${homedir() || '/tmp'}/.${cmd}`);
   if (!existsSync(writableRoot)) {
     mkdirSync(writableRoot);
   }
   writeFileSync(`${writableRoot}/${cmd}_complete.sh`, tpl);
-  console.log(`Generated: ${`${writableRoot}/${cmd}_complete.sh`.green}`);
+  console.log(`Generated: ${resolve(`${writableRoot}/${cmd}_complete.sh`).green}`);
   const rcFile: string = ((): string => {
     const split: Array<string> = (process.env.SHELL as string).split('/');
-    let rc: string = join(process.env.HOME as string, `.${split[split.length - 1]}rc`);
+    let rc: string = join(homedir() as string, `.${split[split.length - 1]}rc`);
     if (!existsSync(rc)) {
-      rc = join(process.env.HOME as string, '.bash_profile');
+      rc = join(homedir() as string, '.bash_profile');
     }
     return rc;
   })();

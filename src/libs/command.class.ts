@@ -1,7 +1,7 @@
 import { rightpad } from '@mohism/utils';
 import { grey, rainbow, red, yellow } from 'colors';
 import { EOL } from 'os';
-import { basename } from 'path';
+import { basename, resolve } from 'path';
 import yargs = require('yargs');
 
 import { IAction } from './action.class';
@@ -33,7 +33,7 @@ class Command {
     this.yargs = yargs.epilog('Power by LANHAO'.green).help(false);
     this.handlers = new Map();
     this.storage = new Storage(this.home, this.name);
-    this.autoload();
+
     process.on('exit', () => {
       console.log(`${EOL}${grey('power by ')}${this.power}`);
     });
@@ -57,9 +57,9 @@ class Command {
    */
   autoload(): void {
     try {
-      const cmdHome = `${this.home}/.${this.name}`;
+      const cmdHome = resolve(`${this.home}/.${this.name}`);
       ensurePath(cmdHome);
-      const pluginRoot = `${cmdHome}/plugins`;
+      const pluginRoot = resolve(`${cmdHome}/plugins`);
       ensurePath(pluginRoot);
       ensureFile(`${pluginRoot}/package.json`, JSON.stringify({}, null, 2));
 
@@ -84,6 +84,7 @@ class Command {
    * 运行
    */
   async run(): Promise<void> {
+    this.autoload();
     const { argv } = this.yargs;
     if (argv.complete) {
       compreply(this.name, this.handlers);
@@ -133,7 +134,7 @@ class Command {
     subCommands.forEach((actionName: string): void => {
       const action = this.handlers.get(actionName);
       if (action) {
-        outputs.push(`${rightpad('', 6)}${rightpad(actionName, 16)}${grey(prettyDesc(action.description()))}`);
+        outputs.push(`${rightpad('', 6)}${rightpad(actionName, 16)}${prettyDesc(action.description())}`);
       }
     });
 

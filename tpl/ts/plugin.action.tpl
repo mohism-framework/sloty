@@ -24,45 +24,6 @@ class PluginAction extends ActionBase {
       case 'ls':
         this.printPlugins();
         break;
-      case 'create':
-        const newPlugin = await this.question.input('插件名字[a-zA-Z,-]');
-        const newdir = `${process.cwd()}/${newPlugin}`;
-        if (!existsSync(newdir)) {
-          mkdirSync(newdir);
-        }
-        this.info(`Generate Directory: ${newdir}`);
-        process.chdir(newdir);
-
-        const pkg = require(`${newdir}/package.json`);
-
-        writeFileSync(
-          `${newdir}/package.json`,
-          JSON.stringify(
-            {
-              ...pkg,
-              name: `${newPlugin}`,
-              version: '1.0.0',
-              main: `dist/${newPlugin}.action.js`,
-              scripts: {
-                ...pkg.scripts,
-                debug: `npx sloty-debug ./src/${newPlugin}.action.ts`,
-              },
-            },
-            null,
-            2,
-          ),
-        );
-
-        this.info('⏳ 准备安装依赖...');
-        this.exec('npm i', {
-          silent: !verbose,
-        });
-
-        this.info('🤖 正在生成代码...');
-        this.exec(`GEN_NAME=${newPlugin} npx sloty-gen -y`, {
-          silent: !verbose,
-        });
-        break;
       case 'add':
         process.chdir(this.instance.pluginRoot);
         const repo =
