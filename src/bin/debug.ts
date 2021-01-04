@@ -12,10 +12,10 @@ import yargs = require('yargs');
   }
   const restOptions = process.argv.slice(2);
   const argv = yargs.parse(restOptions.join(' '));
-  
+
   delete argv.$0;
 
-  const file = resolve(`${process.cwd()}/${process.argv[2]}`);
+  const file = resolve(process.argv[2].startsWith('/') ? process.argv[2] : `${process.cwd()}/${process.argv[2]}`);
   if (!existsSync(file)) {
     console.log(`Not Found: ${file}`);
     process.exit();

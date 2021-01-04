@@ -141,8 +141,6 @@ class Command {
     console.log(outputs.join(EOL));
     process.exit(0);
   }
-
-
 }
 
 export default Command;
