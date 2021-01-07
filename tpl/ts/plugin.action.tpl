@@ -57,9 +57,10 @@ class PluginAction extends ActionBase {
     const outputs: string[] = [];
     this.instance.plugins.forEach((plugin) => {
       const n = plugin.includes('/') ? plugin.split('/')[1] : plugin;
-      outputs.push(
-        `- ${plugin} V${this.instance.handlers.get(n)?.version || ''}${EOL}`,
-      );
+      const action = this.instance.handlers.get(n);
+      if (action) {
+        outputs.push(`- ${plugin} V${action.version || ''}${EOL}`);
+      }
     });
     console.log(outputs.join(''));
   }

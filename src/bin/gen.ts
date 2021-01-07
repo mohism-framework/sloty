@@ -4,7 +4,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs';
 import { resolve } from 'path';
 
 import Question from '../libs/question.class';
-import { ensurePath } from '../libs/utils/func';
+import { ensurePath, ensureFile } from '../libs/utils/func';
 
 const unifiedName = (name: string): string => {
   const result: Array<string> = [];
@@ -27,6 +27,7 @@ const unifiedName = (name: string): string => {
   if (ext === 'ts') {
     ensurePath('./src');
     ensurePath('./dist');
+    ensureFile('./tsconfig.json', readFileSync('./tsconfig.json').toString());
   }
 
   const content = readFileSync(resolve(`${__dirname}/../../gen_tpl/action.${ext}.tpl`)).toString();

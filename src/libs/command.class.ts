@@ -70,7 +70,11 @@ class Command {
       this.plugins.forEach(plugin => {
         const action = require(`${pluginRoot}/node_modules/${plugin}`).default;
         const pkg = require(`${pluginRoot}/node_modules/${plugin}/package.json`);
-        action.setVersion && action.setVersion(pkg.version);
+        if (!pkg.dependencies['@mohism/sloty']) {
+          // 没有占到@mohism/sloty依赖，可能不是个命令插件
+          return;
+        }
+        action && action.setVersion && action.setVersion(pkg.version);
         const name = basename(plugin);
         this.add(name, action);
       });
