@@ -126,7 +126,7 @@ export const compreply = (cmd: string, handlers: Map<string, IAction>) => {
   writeFileSync(`${writableRoot}/${cmd}_complete.sh`, tpl);
   console.log(`Generated: ${resolve(`${writableRoot}/${cmd}_complete.sh`).green}`);
   const rcFile: string = ((): string => {
-    const split: Array<string> = (process.env.SHELL as string).split('/');
+    const split: Array<string> = (process.env.SHELL as string || 'bash').split('/');
     let rc: string = join(homedir() as string, `.${split[split.length - 1]}rc`);
     if (!existsSync(rc)) {
       rc = join(homedir() as string, '.bash_profile');
