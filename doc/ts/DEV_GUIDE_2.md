@@ -47,3 +47,11 @@ instance.add('aaap', Aaap);
 > foo aaap --boom true
 
 ![](../../assets/6.png)
+
+### 那么如何独立开发一个子命令呢
+
+> npx sloty-gen
+
+根据提示，就会生成一个只包含 `action` 类的代码模板。
+
+> 相比于初始化整个命令行工具，这样更加的轻巧。
