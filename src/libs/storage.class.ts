@@ -5,6 +5,7 @@ export interface IStorage {
   get(key: string): string;
   save(key: string, value: string): void;
   append(key: string, value: string): void;
+  getPrefix(): string;
 }
 
 export default class Storage implements IStorage {
@@ -18,7 +19,14 @@ export default class Storage implements IStorage {
     }
   }
 
+  getPrefix(): string {
+    return this.prefix;
+  }
+
   get(key: string): string {
+    if (!existsSync(`${this.home}/${this.prefix}/${key}`)) {
+      return '';
+    }
     return readFileSync(`${this.home}/${this.prefix}/${key}`).toString('utf-8');
   }
 
