@@ -119,7 +119,7 @@ class Command {
         if (process.env.DEBUG) {
           console.log(e);
         }
-        console.log(red(e.message));
+        console.log(red((e as Error).message));
       }
     } else {
       console.log(red('Action Not Support'));

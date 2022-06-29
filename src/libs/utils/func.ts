@@ -70,8 +70,8 @@ export const unifiedHelp = (action: IAction, sub: string = '', root: string = ''
   const pkg = require(`${root}/package.json`);
   const [description, options] = [action.description(), action.options()];
   const optionStr = Object.keys(options).reduce((a, c) => `${a} [ -${c.length > 1 ? '-' : ''}${c} xxx ]`, '');
-  const optionList = Object.keys(options).reduce((a, c) => `${a}${rightpad(`  ${c}`, 10).green}${rightpad(`default: ${options[c].default}`, 24)}${prettyDesc(options[c].desc, 34)}${EOL}`, '');
-  const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr}`;
+  const optionList = Object.keys(options).reduce((a, c) => `${a}${rightpad(`  ${c}`, 10).green}${rightpad(`default: ${options[c].default || '无'}`, 24)}${prettyDesc(options[c].desc, 34)}${EOL}`, '');
+  const usage = `Usage: ${pkg.name.split('/').pop()} ${sub} ${optionStr} [...更多输入]`;
   return `${usage.green}
 
 ${description.grey}

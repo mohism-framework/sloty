@@ -61,6 +61,13 @@ abstract class ActionBase implements IAction {
   exec(cmd: string, options: ExecOptions = { silent: false }): number {
     return (shelljs.exec(cmd, options) as ExecOutputReturnValue).code;
   }
+  execOut(cmd: string, options: ExecOptions = { silent: false }): string {
+    const result:ExecOutputReturnValue = shelljs.exec(cmd, options) as ExecOutputReturnValue;
+    if (result.code !== 0) {
+      throw new Error(result.stderr);
+    }
+    return result.stdout;
+  }
 }
 
 export default ActionBase;

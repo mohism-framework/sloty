@@ -1,7 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
-  '@mohism/utils': ^1.1.8
+  '@mohism/utils': 1.1.11
   '@types/chai': ^4.2.7
   '@types/download': ^8.0.1
   '@types/inquirer': ^6.5.0
@@ -12,7 +12,7 @@ specifiers:
   '@typescript-eslint/eslint-plugin': ^2.5.0
   '@typescript-eslint/parser': ^2.5.0
   chai: ^4.2.0
-  colors: ^1.4.0
+  colors: '=1.4.0'
   dayjs: ^1.8.16
   download: ^8.0.0
   dts-gen: ^0.5.8
@@ -29,7 +29,7 @@ specifiers:
   yargs: ^14.2.0
 
 dependencies:
-  '@mohism/utils': 1.1.10
+  '@mohism/utils': 1.1.11
   '@types/chai': 4.3.0
   '@types/inquirer': 6.5.0
   '@types/mocha': 5.2.7
@@ -271,8 +271,8 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
-  /@mohism/utils/1.1.10:
-    resolution: {integrity: sha512-OpoIHyI3lPQcnODRgyRhPZZw2X1ragNyyGtqmGE1MR8KxxD/xwTiwA4UC3HoY3TPP1ugpx2Qw5ccGTeuioaUyA==}
+  /@mohism/utils/1.1.11:
+    resolution: {integrity: sha512-wz2FVGZjF6DSBgVT2FiCirj8xjaMb2qOuo8fUObIjdrMeqWRYuLjqPTbyjOKoIrU3nF+AuuV5DpPtA05ihHY3w==}
     dependencies:
       colors: 1.4.0
       dayjs: 1.10.7
